@@ -1,13 +1,85 @@
 import React, { useEffect } from "react"
 import { motion } from "framer-motion"
 
+function LifecycleDiagram(){
+  return (
+    <div className="mt-8 rounded-3xl border border-gray-200 bg-white p-5 md:p-8 shadow-sm">
+      <svg viewBox="0 0 1200 480" className="w-full h-auto" aria-label="ISO 8800 lifecycle diagram">
+        <defs>
+          <linearGradient id="grad" x1="0" x2="1">
+            <stop offset="0%" stopColor="#0ea5e9" stopOpacity="0.15"/>
+            <stop offset="100%" stopColor="#10b981" stopOpacity="0.15"/>
+          </linearGradient>
+          <marker id="arrow" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L9,3 z" fill="#111827" />
+          </marker>
+        </defs>
+        {/* Background split: Encompassing vs AI system */}
+        <rect x="0" y="0" width="540" height="480" fill="url(#grad)"/>
+        <rect x="540" y="0" width="660" height="480" fill="#fff"/>
+        <text x="270" y="36" textAnchor="middle" fontSize="18" fontFamily="Inter,Arial" fill="#111827">Encompassing system (ISO 26262)</text>
+        <text x="870" y="36" textAnchor="middle" fontSize="18" fontFamily="Inter,Arial" fill="#111827">AI system (tailored 26262 + ISO 8800)</text>
+
+        {/* Encompassing side */}
+        <rect x="80" y="80" width="380" height="70" rx="14" fill="#fff" stroke="#e5e7eb"/>
+        <text x="270" y="123" textAnchor="middle" fontSize="16" fontFamily="Inter,Arial" fill="#111827">Allocate safety reqs to AI system</text>
+        <line x1="460" y1="115" x2="540" y2="115" stroke="#111827" strokeWidth="2.2" markerEnd="url(#arrow)"/>
+
+        {/* V-model block */}
+        <rect x="600" y="70" width="520" height="260" rx="20" fill="#f9fafb" stroke="#e5e7eb"/>
+        <text x="860" y="95" textAnchor="middle" fontSize="14" fontFamily="Inter,Arial" fill="#374151">AI system design & V&V</text>
+        {/* Left V */}
+        <path d="M630 110 L720 300" stroke="#94a3b8" strokeWidth="18" fill="none"/>
+        <path d="M720 300 L810 110" stroke="#111827" strokeWidth="18" fill="none"/>
+        {/* Right V */}
+        <path d="M910 110 L1000 300" stroke="#94a3b8" strokeWidth="18" fill="none"/>
+        <path d="M1000 300 L1090 110" stroke="#111827" strokeWidth="18" fill="none"/>
+        {/* Labels on V steps */}
+        <text x="705" y="140" fontSize="12" fontFamily="Inter,Arial" fill="#111827" textAnchor="middle">Data</text>
+        <text x="760" y="190" fontSize="12" fontFamily="Inter,Arial" fill="#111827" textAnchor="middle">AI component</text>
+        <text x="820" y="235" fontSize="12" fontFamily="Inter,Arial" fill="#111827" textAnchor="middle">Implementation</text>
+        <text x="965" y="235" fontSize="12" fontFamily="Inter,Arial" fill="#111827" textAnchor="middle">Comp. verification</text>
+        <text x="1025" y="190" fontSize="12" fontFamily="Inter,Arial" fill="#111827" textAnchor="middle">AI system V&V</text>
+        <text x="1080" y="140" fontSize="12" fontFamily="Inter,Arial" fill="#111827" textAnchor="middle">Safety analysis</text>
+
+        {/* Evaluate, Integrate, Operate blocks */}
+        <rect x="640" y="360" width="180" height="70" rx="14" fill="#fff" stroke="#e5e7eb"/>
+        <text x="730" y="395" fontSize="14" fontFamily="Inter,Arial" fill="#111827" textAnchor="middle">Evaluate assurance</text>
+        <text x="730" y="413" fontSize="12" fontFamily="Inter,Arial" fill="#6b7280" textAnchor="middle">AI safety reqs fulfilled?</text>
+
+        <rect x="840" y="360" width="180" height="70" rx="14" fill="#fff" stroke="#e5e7eb"/>
+        <text x="930" y="395" fontSize="14" fontFamily="Inter,Arial" fill="#111827" textAnchor="middle">Integrate & system V&V</text>
+
+        <rect x="1040" y="360" width="120" height="70" rx="14" fill="#fff" stroke="#e5e7eb"/>
+        <text x="1100" y="395" fontSize="14" fontFamily="Inter,Arial" fill="#111827" textAnchor="middle">Operate</text>
+        <text x="1100" y="413" fontSize="12" fontFamily="Inter,Arial" fill="#6b7280" textAnchor="middle">Monitor & OTA</text>
+
+        {/* Flow arrows */}
+        <line x1="880" y1="330" x2="730" y2="360" stroke="#111827" strokeWidth="2" markerEnd="url(#arrow)"/>
+        <line x1="820" y1="395" x2="840" y2="395" stroke="#111827" strokeWidth="2" markerEnd="url(#arrow)"/>
+        <line x1="1020" y1="395" x2="1040" y2="395" stroke="#111827" strokeWidth="2" markerEnd="url(#arrow)"/>
+
+        {/* Tool confidence strip */}
+        <rect x="80" y="430" width="1080" height="26" rx="10" fill="#eef2ff" stroke="#e5e7eb"/>
+        <text x="620" y="448" textAnchor="middle" fontSize="12" fontFamily="Inter,Arial" fill="#374151">Confidence-in-use of AI dev frameworks & tools</text>
+      </svg>
+      <p className="mt-3 text-xs text-gray-600">Left: allocate safety from the encompassing system. Center: AI system V-model with ISO 8800 activities. Right: evaluate → integrate → operate (monitoring & OTA). Bottom: tool confidence evidence.</p>
+    </div>
+  )
+}
+
+
+// Single-file React landing page for your ISO 8800 offering.
+// Drop into Next.js (as a page) or Vite/React as App.jsx.
+// Tailwind CSS recommended for styles.
+
 const stages = [
-  { title: "AI Item & ODD", desc: "Define function, interfaces, and ODD with safety goals tied to boundaries." },
+  { title: "Item → AI System & ODD", desc: "Start from the item definition; identify any AI system(s) inside the item, define boundaries and ODD, and tie safety goals to those boundaries." },
   { title: "Data Governance", desc: "Spec → collect → label → version; prove representativeness vs ODD." },
-  { title: "Model Development", desc: "Reproducible training, HP registry, anti-shortcut strategies." },
-  { title: "Scenario & Coverage", desc: "ODD-aligned catalog, boundary bins, measurable coverage KPIs." },
-  { title: "Robustness & V&V", desc: "Stress (noise/blur/weather), OOD & uncertainty metrics, regression-free." },
-  { title: "Runtime Monitoring", desc: "Health & OOD detectors, confidence gating, safe-state/MRM." },
+  { title: "AI Components & Model Dev", desc: "Classify components (model vs non‑model); document interfaces, then develop/verify models with reproducible training and anti‑shortcut strategies." },
+  { title: "Scenario & Coverage", desc: "ODD‑aligned catalog, boundary bins, measurable coverage KPIs." },
+  { title: "Robustness & V&V", desc: "Stress (noise/blur/weather), OOD & uncertainty metrics, regression‑free." },
+  { title: "Runtime Monitoring", desc: "Health & OOD detectors, confidence gating, safe‑state/MRM." },
   { title: "Change & OTA", desc: "Retraining classes, staged rollout & rollback, requalification gates." },
   { title: "AI Safety Case", desc: "GSN argument with traceability from requirements → evidence." },
 ]
@@ -25,8 +97,9 @@ function Stat({ value, label }) {
   )
 }
 
-export default function App() {
+export default function ISO8800Landing() {
   useEffect(() => {
+    // Minimal JSON-LD for SEO (Services)
     const script = document.createElement('script')
     script.type = 'application/ld+json'
     script.text = JSON.stringify({
@@ -43,19 +116,23 @@ export default function App() {
 
   return (
     <div className="min-h-screen w-full text-gray-900 bg-gradient-to-b from-sky-50 via-white to-white">
+      {/* Nav */}
       <header className="sticky top-0 z-10 bg-white/70 backdrop-blur border-b border-gray-200">
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
           <a href="#top" className="font-bold tracking-tight">ISO 8800 Automotive</a>
-          <nav className="hidden md:flex items-center gap-6 text-sm">
-            <a href="#process" className="hover:underline">Process</a>
-            <a href="#services" className="hover:underline">Services</a>
-            <a href="#case" className="hover:underline">Case Study</a>
-            <a href="#faq" className="hover:underline">FAQ</a>
-            <a href="#contact" className="px-3 py-1.5 rounded-lg bg-gray-900 text-white">Talk to us</a>
+          <nav className=\"hidden md:flex items-center gap-6 text-sm\">
+            <a href=\"#scope\" className=\"hover:underline\">Scope</a>
+            <a href=\"#lifecycle\" className=\"hover:underline\">Lifecycle</a>
+            <a href=\"#process\" className=\"hover:underline\">Process</a>
+            <a href=\"#services\" className=\"hover:underline\">Services</a>
+            <a href=\"#case\" className=\"hover:underline\">Case Study</a>
+            <a href=\"#faq\" className=\"hover:underline\">FAQ</a>
+            <a href=\"#contact\" className=\"px-3 py-1.5 rounded-lg bg-gray-900 text-white\">Talk to us</a>
           </nav>
         </div>
       </header>
 
+      {/* Hero */}
       <section id="top" className="relative overflow-hidden">
         <div className="absolute inset-0 -z-10 blur-3xl opacity-70" aria-hidden>
           <div className="absolute -top-28 left-1/3 w-96 h-96 bg-sky-200 rounded-full" />
@@ -87,6 +164,100 @@ export default function App() {
         </div>
       </section>
 
+      {/* Scope & Tailoring per ISO 8800 */}
+      <section id=\"scope\" className=\"py-14 border-t border-gray-200\">
+        <div className=\"max-w-6xl mx-auto px-4\">
+          <h2 className=\"text-2xl md:text-3xl font-bold tracking-tight\">Scope & Tailoring (Item → AI system → AI components)</h2>
+          <p className=\"text-gray-600 mt-2 max-w-3xl\">Per ISO 8800, the <span class=\"font-semibold\">AI system</span> is <span class=\"font-semibold\">derived from the item definition</span>. An item can contain both non‑AI systems and AI system(s). For AI system(s), ISO 26262 is tailored and ISO 8800 adds AI‑specific activities. Within the AI system, identify <span class=\"font-semibold\">AI components</span>—some are AI models (or contain models), others are non‑model components.</p>
+
+          <div className=\"mt-6 grid md:grid-cols-2 gap-4\">
+            <div className=\"rounded-2xl border border-gray-200 bg-white p-5\">
+              <div className=\"text-lg font-semibold mb-3\">Application of ISO 26262</div>
+              <div className=\"space-y-3\">
+                <div className=\"rounded-xl border border-gray-300 p-3\">Item</div>
+                <div className=\"rounded-xl border border-gray-300 p-3\">Non‑AI system(s) and their elements</div>
+                <div className=\"rounded-xl border border-gray-300 p-3\">AI components that are not AI models or do not contain AI models</div>
+              </div>
+            </div>
+            <div className=\"rounded-2xl border border-gray-200 bg-white p-5\">
+              <div className=\"text-lg font-semibold mb-3\">Application of tailored ISO 26262 + ISO 8800</div>
+              <div className=\"space-y-3\">
+                <div className=\"rounded-xl border border-gray-300 p-3\">AI system(s)</div>
+                <div className=\"rounded-xl border border-gray-300 p-3\">AI components that are AI models or contain AI models</div>
+              </div>
+            </div>
+          </div>
+
+          <div className=\"mt-6 p-4 rounded-2xl bg-gray-50 border border-gray-200 text-sm\">
+            <span className=\"font-semibold\">Takeaway:</span> Step 1 is to derive and define the <em>AI system</em> from the item. Step 2 is to identify its <em>AI components</em> (model vs non‑model) before data/model work begins.
+          </div>
+        </div>
+      </section>
+
+      {/* Lifecycle per ISO 8800 */}
+      <section id=\"lifecycle\" className=\"py-14 border-t border-gray-200\">
+        <div className=\"max-w-6xl mx-auto px-4\">
+          <h2 className=\"text-2xl md:text-3xl font-bold tracking-tight\">ISO 8800 Lifecycle — from Item to Assured Operation</h2>
+          <p className=\"text-gray-600 mt-2 max-w-3xl\">Start at the <span className=\"font-semibold\">encompassing system</span>, derive and refine the <span className=\"font-semibold\">AI system</span>, develop and verify via an AI‑aware V‑model, then evaluate, integrate, and operate with continuous assurance.</p>
+
+          {/** Visual diagram **/}
+          <LifecycleDiagram />
+
+          <ol className=\"mt-6 grid md:grid-cols-3 gap-4 text-sm\">
+            <li className=\"rounded-2xl border border-gray-200 bg-white p-5\">
+              <div className=\"text-xs font-semibold text-gray-500\">01</div>
+              <div className=\"font-semibold\">Encompassing system → allocate safety to AI system</div>
+              <p className=\"text-gray-700 mt-1\">Safety concept and requirements from the encompassing system are allocated to the AI system (or additional measures kept at system level).</p>
+              <div className=\"mt-2 text-gray-600\"><span className=\"font-semibold\">Work products:</span> AI safety requirements allocation record</div>
+            </li>
+            <li className=\"rounded-2xl border border-gray-200 bg-white p-5\">
+              <div className=\"text-xs font-semibold text-gray-500\">02</div>
+              <div className=\"font-semibold\">Refine AI safety requirements</div>
+              <p className=\"text-gray-700 mt-1\">Refinement for the AI system, including ODD constraints, performance targets, and monitor/fallback needs.</p>
+              <div className=\"mt-2 text-gray-600\"><span className=\"font-semibold\">Work products:</span> refined AI safety requirements, ODD spec</div>
+            </li>
+            <li className=\"rounded-2xl border border-gray-200 bg-white p-5\">
+              <div className=\"text-xs font-semibold text-gray-500\">03</div>
+              <div className=\"font-semibold\">AI system design and V&V (V-model)</div>
+              <ul className=\"list-disc list-inside text-gray-700 mt-1 space-y-1\">
+                <li><span className=\"font-semibold\">Data:</span> governance, representativeness, gold sets</li>
+                <li><span className=\"font-semibold\">AI component design:</span> model/non-model components and interfaces</li>
+                <li><span className=\"font-semibold\">Implementation:</span> reproducible training & config control</li>
+                <li><span className=\"font-semibold\">AI component verification:</span> scenario-based tests, robustness, OOD</li>
+                <li><span className=\"font-semibold\">AI system V&V:</span> end-to-end validation vs safety reqs</li>
+                <li><span className=\"font-semibold\">Safety analysis:</span> malfunction + insufficient performance</li>
+              </ul>
+              <div className=\"mt-2 text-gray-600\"><span className=\"font-semibold\">Work products:</span> data/label manifests, test reports, monitor specs</div>
+            </li>
+            <li className=\"rounded-2xl border border-gray-200 bg-white p-5\">
+              <div className=\"text-xs font-semibold text-gray-500\">04</div>
+              <div className=\"font-semibold\">Evaluate Safety Assurance Argument</div>
+              <p className=\"text-gray-700 mt-1\">Assess whether AI safety requirements are fulfilled; if not, iterate design/V&V.</p>
+              <div className=\"mt-2 text-gray-600\"><span className=\"font-semibold\">Work products:</span> assurance argument review record</div>
+            </li>
+            <li className=\"rounded-2xl border border-gray-200 bg-white p-5\">
+              <div className=\"text-xs font-semibold text-gray-500\">05</div>
+              <div className=\"font-semibold\">Encompassing system integration, V&V and assurance</div>
+              <p className=\"text-gray-700 mt-1\">Integrate AI system into the encompassing system and confirm overall assurance remains valid.</p>
+              <div className=\"mt-2 text-gray-600\"><span className=\"font-semibold\">Work products:</span> integration test reports</div>
+            </li>
+            <li className=\"rounded-2xl border border-gray-200 bg-white p-5\">
+              <div className=\"text-xs font-semibold text-gray-500\">06</div>
+              <div className=\"font-semibold\">Operation, monitoring, continuous assurance & decommissioning</div>
+              <p className=\"text-gray-700 mt-1\">Runtime monitoring, OTA change control, field feedback loops, and decommissioning practices; keep the assurance argument valid.</p>
+              <div className=\"mt-2 text-gray-600\"><span className=\"font-semibold\">Work products:</span> monitor calibration, field logs, requalification records</div>
+            </li>
+            <li className=\"rounded-2xl border border-gray-200 bg-white p-5 md:col-span-3\">
+              <div className=\"text-xs font-semibold text-gray-500\">07</div>
+              <div className=\"font-semibold\">Tool confidence (frameworks & software used for model development)</div>
+              <p className=\"text-gray-700 mt-1\">Establish confidence-in-use or qualification measures for AI development frameworks and tools that could impact safety evidence.</p>
+              <div className=\"mt-2 text-gray-600\"><span className=\"font-semibold\">Work products:</span> tool confidence/qualification rationale</div>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      {/* Process */}
       <section id="process" className="py-14 border-t border-gray-200">
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Our ISO 8800 Safety Loop</h2>
@@ -106,6 +277,7 @@ export default function App() {
         </div>
       </section>
 
+      {/* Services */}
       <section id="services" className="py-14">
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Services for Tier‑1s & OEMs</h2>
@@ -126,6 +298,7 @@ export default function App() {
         </div>
       </section>
 
+      {/* Case Study */}
       <section id="case" className="py-14 border-y border-gray-200 bg-white">
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Mini Case Study</h2>
@@ -140,6 +313,7 @@ export default function App() {
         </div>
       </section>
 
+      {/* CTA */}
       <section className="py-14">
         <div className="max-w-6xl mx-auto px-4">
           <div className="rounded-3xl p-6 md:p-10 border border-gray-200 bg-gradient-to-br from-white to-sky-50">
@@ -153,6 +327,7 @@ export default function App() {
         </div>
       </section>
 
+      {/* FAQ */}
       <section id="faq" className="py-14 border-t border-gray-200">
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">FAQs</h2>
@@ -177,6 +352,7 @@ export default function App() {
         </div>
       </section>
 
+      {/* Contact */}
       <section id="contact" className="py-14">
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Contact</h2>
@@ -205,6 +381,7 @@ export default function App() {
         </div>
       </section>
 
+      {/* Footer */}
       <footer className="py-10 border-t border-gray-200 text-sm">
         <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-3">
           <div>© {new Date().getFullYear()} ISO 8800 Automotive Safety</div>
