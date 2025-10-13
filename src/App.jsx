@@ -120,14 +120,14 @@ export default function ISO8800Landing() {
       <header className="sticky top-0 z-10 bg-white/70 backdrop-blur border-b border-gray-200">
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
           <a href="#top" className="font-bold tracking-tight">ISO 8800 Automotive</a>
-          <nav className=\"hidden md:flex items-center gap-6 text-sm\">
-            <a href=\"#scope\" className=\"hover:underline\">Scope</a>
-            <a href=\"#lifecycle\" className=\"hover:underline\">Lifecycle</a>
-            <a href=\"#process\" className=\"hover:underline\">Process</a>
-            <a href=\"#services\" className=\"hover:underline\">Services</a>
-            <a href=\"#case\" className=\"hover:underline\">Case Study</a>
-            <a href=\"#faq\" className=\"hover:underline\">FAQ</a>
-            <a href=\"#contact\" className=\"px-3 py-1.5 rounded-lg bg-gray-900 text-white\">Talk to us</a>
+          <nav className="hidden md:flex items-center gap-6 text-sm">
+            <a href="#scope" className="hover:underline">Scope</a>
+            <a href="#lifecycle" className="hover:underline">Lifecycle</a>
+            <a href="#process" className="hover:underline">Process</a>
+            <a href="#services" className="hover:underline">Services</a>
+            <a href="#case" className="hover:underline">Case Study</a>
+            <a href="#faq" className="hover:underline">FAQ</a>
+            <a href="#contact" className="px-3 py-1.5 rounded-lg bg-gray-900 text-white">Talk to us</a>
           </nav>
         </div>
       </header>
@@ -165,93 +165,93 @@ export default function ISO8800Landing() {
       </section>
 
       {/* Scope & Tailoring per ISO 8800 */}
-      <section id=\"scope\" className=\"py-14 border-t border-gray-200\">
-        <div className=\"max-w-6xl mx-auto px-4\">
-          <h2 className=\"text-2xl md:text-3xl font-bold tracking-tight\">Scope & Tailoring (Item → AI system → AI components)</h2>
-          <p className=\"text-gray-600 mt-2 max-w-3xl\">Per ISO 8800, the <span class=\"font-semibold\">AI system</span> is <span class=\"font-semibold\">derived from the item definition</span>. An item can contain both non‑AI systems and AI system(s). For AI system(s), ISO 26262 is tailored and ISO 8800 adds AI‑specific activities. Within the AI system, identify <span class=\"font-semibold\">AI components</span>—some are AI models (or contain models), others are non‑model components.</p>
+      <section id="scope" className="py-14 border-t border-gray-200">
+        <div className="max-w-6xl mx-auto px-4">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Scope & Tailoring (Item → AI system → AI components)</h2>
+          <p className="text-gray-600 mt-2 max-w-3xl">Per ISO 8800, the <span className="font-semibold">AI system</span> is <span className="font-semibold">derived from the item definition</span>. An item can contain both non‑AI systems and AI system(s). For AI system(s), ISO 26262 is tailored and ISO 8800 adds AI‑specific activities. Within the AI system, identify <span className="font-semibold">AI components</span>—some are AI models (or contain models), others are non‑model components.</p>
 
-          <div className=\"mt-6 grid md:grid-cols-2 gap-4\">
-            <div className=\"rounded-2xl border border-gray-200 bg-white p-5\">
-              <div className=\"text-lg font-semibold mb-3\">Application of ISO 26262</div>
-              <div className=\"space-y-3\">
-                <div className=\"rounded-xl border border-gray-300 p-3\">Item</div>
-                <div className=\"rounded-xl border border-gray-300 p-3\">Non‑AI system(s) and their elements</div>
-                <div className=\"rounded-xl border border-gray-300 p-3\">AI components that are not AI models or do not contain AI models</div>
+          <div className="mt-6 grid md:grid-cols-2 gap-4">
+            <div className="rounded-2xl border border-gray-200 bg-white p-5">
+              <div className="text-lg font-semibold mb-3">Application of ISO 26262</div>
+              <div className="space-y-3">
+                <div className="rounded-xl border border-gray-300 p-3">Item</div>
+                <div className="rounded-xl border border-gray-300 p-3">Non‑AI system(s) and their elements</div>
+                <div className="rounded-xl border border-gray-300 p-3">AI components that are not AI models or do not contain AI models</div>
               </div>
             </div>
-            <div className=\"rounded-2xl border border-gray-200 bg-white p-5\">
-              <div className=\"text-lg font-semibold mb-3\">Application of tailored ISO 26262 + ISO 8800</div>
-              <div className=\"space-y-3\">
-                <div className=\"rounded-xl border border-gray-300 p-3\">AI system(s)</div>
-                <div className=\"rounded-xl border border-gray-300 p-3\">AI components that are AI models or contain AI models</div>
+            <div className="rounded-2xl border border-gray-200 bg-white p-5">
+              <div className="text-lg font-semibold mb-3">Application of tailored ISO 26262 + ISO 8800</div>
+              <div className="space-y-3">
+                <div className="rounded-xl border border-gray-300 p-3">AI system(s)</div>
+                <div className="rounded-xl border border-gray-300 p-3">AI components that are AI models or contain AI models</div>
               </div>
             </div>
           </div>
 
-          <div className=\"mt-6 p-4 rounded-2xl bg-gray-50 border border-gray-200 text-sm\">
-            <span className=\"font-semibold\">Takeaway:</span> Step 1 is to derive and define the <em>AI system</em> from the item. Step 2 is to identify its <em>AI components</em> (model vs non‑model) before data/model work begins.
+          <div className="mt-6 p-4 rounded-2xl bg-gray-50 border border-gray-200 text-sm">
+            <span className="font-semibold">Takeaway:</span> Step 1 is to derive and define the <em>AI system</em> from the item. Step 2 is to identify its <em>AI components</em> (model vs non‑model) before data/model work begins.
           </div>
         </div>
       </section>
 
       {/* Lifecycle per ISO 8800 */}
-      <section id=\"lifecycle\" className=\"py-14 border-t border-gray-200\">
-        <div className=\"max-w-6xl mx-auto px-4\">
-          <h2 className=\"text-2xl md:text-3xl font-bold tracking-tight\">ISO 8800 Lifecycle — from Item to Assured Operation</h2>
-          <p className=\"text-gray-600 mt-2 max-w-3xl\">Start at the <span className=\"font-semibold\">encompassing system</span>, derive and refine the <span className=\"font-semibold\">AI system</span>, develop and verify via an AI‑aware V‑model, then evaluate, integrate, and operate with continuous assurance.</p>
+      <section id="lifecycle" className="py-14 border-t border-gray-200">
+        <div className="max-w-6xl mx-auto px-4">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">ISO 8800 Lifecycle — from Item to Assured Operation</h2>
+          <p className="text-gray-600 mt-2 max-w-3xl">Start at the <span className="font-semibold">encompassing system</span>, derive and refine the <span className="font-semibold">AI system</span>, develop and verify via an AI‑aware V‑model, then evaluate, integrate, and operate with continuous assurance.</p>
 
           {/** Visual diagram **/}
           <LifecycleDiagram />
 
-          <ol className=\"mt-6 grid md:grid-cols-3 gap-4 text-sm\">
-            <li className=\"rounded-2xl border border-gray-200 bg-white p-5\">
-              <div className=\"text-xs font-semibold text-gray-500\">01</div>
-              <div className=\"font-semibold\">Encompassing system → allocate safety to AI system</div>
-              <p className=\"text-gray-700 mt-1\">Safety concept and requirements from the encompassing system are allocated to the AI system (or additional measures kept at system level).</p>
-              <div className=\"mt-2 text-gray-600\"><span className=\"font-semibold\">Work products:</span> AI safety requirements allocation record</div>
+          <ol className="mt-6 grid md:grid-cols-3 gap-4 text-sm">
+            <li className="rounded-2xl border border-gray-200 bg-white p-5">
+              <div className="text-xs font-semibold text-gray-500">01</div>
+              <div className="font-semibold">Encompassing system → allocate safety to AI system</div>
+              <p className="text-gray-700 mt-1">Safety concept and requirements from the encompassing system are allocated to the AI system (or additional measures kept at system level).</p>
+              <div className="mt-2 text-gray-600"><span className="font-semibold">Work products:</span> AI safety requirements allocation record</div>
             </li>
-            <li className=\"rounded-2xl border border-gray-200 bg-white p-5\">
-              <div className=\"text-xs font-semibold text-gray-500\">02</div>
-              <div className=\"font-semibold\">Refine AI safety requirements</div>
-              <p className=\"text-gray-700 mt-1\">Refinement for the AI system, including ODD constraints, performance targets, and monitor/fallback needs.</p>
-              <div className=\"mt-2 text-gray-600\"><span className=\"font-semibold\">Work products:</span> refined AI safety requirements, ODD spec</div>
+            <li className="rounded-2xl border border-gray-200 bg-white p-5">
+              <div className="text-xs font-semibold text-gray-500">02</div>
+              <div className="font-semibold">Refine AI safety requirements</div>
+              <p className="text-gray-700 mt-1">Refinement for the AI system, including ODD constraints, performance targets, and monitor/fallback needs.</p>
+              <div className="mt-2 text-gray-600"><span className="font-semibold">Work products:</span> refined AI safety requirements, ODD spec</div>
             </li>
-            <li className=\"rounded-2xl border border-gray-200 bg-white p-5\">
-              <div className=\"text-xs font-semibold text-gray-500\">03</div>
-              <div className=\"font-semibold\">AI system design and V&V (V-model)</div>
-              <ul className=\"list-disc list-inside text-gray-700 mt-1 space-y-1\">
-                <li><span className=\"font-semibold\">Data:</span> governance, representativeness, gold sets</li>
-                <li><span className=\"font-semibold\">AI component design:</span> model/non-model components and interfaces</li>
-                <li><span className=\"font-semibold\">Implementation:</span> reproducible training & config control</li>
-                <li><span className=\"font-semibold\">AI component verification:</span> scenario-based tests, robustness, OOD</li>
-                <li><span className=\"font-semibold\">AI system V&V:</span> end-to-end validation vs safety reqs</li>
-                <li><span className=\"font-semibold\">Safety analysis:</span> malfunction + insufficient performance</li>
+            <li className="rounded-2xl border border-gray-200 bg-white p-5">
+              <div className="text-xs font-semibold text-gray-500">03</div>
+              <div className="font-semibold">AI system design and V&V (V-model)</div>
+              <ul className="list-disc list-inside text-gray-700 mt-1 space-y-1">
+                <li><span className="font-semibold">Data:</span> governance, representativeness, gold sets</li>
+                <li><span className="font-semibold">AI component design:</span> model/non-model components and interfaces</li>
+                <li><span className="font-semibold">Implementation:</span> reproducible training & config control</li>
+                <li><span className="font-semibold">AI component verification:</span> scenario-based tests, robustness, OOD</li>
+                <li><span className="font-semibold">AI system V&V:</span> end-to-end validation vs safety reqs</li>
+                <li><span className="font-semibold">Safety analysis:</span> malfunction + insufficient performance</li>
               </ul>
-              <div className=\"mt-2 text-gray-600\"><span className=\"font-semibold\">Work products:</span> data/label manifests, test reports, monitor specs</div>
+              <div className="mt-2 text-gray-600"><span className="font-semibold">Work products:</span> data/label manifests, test reports, monitor specs</div>
             </li>
-            <li className=\"rounded-2xl border border-gray-200 bg-white p-5\">
-              <div className=\"text-xs font-semibold text-gray-500\">04</div>
-              <div className=\"font-semibold\">Evaluate Safety Assurance Argument</div>
-              <p className=\"text-gray-700 mt-1\">Assess whether AI safety requirements are fulfilled; if not, iterate design/V&V.</p>
-              <div className=\"mt-2 text-gray-600\"><span className=\"font-semibold\">Work products:</span> assurance argument review record</div>
+            <li className="rounded-2xl border border-gray-200 bg-white p-5">
+              <div className="text-xs font-semibold text-gray-500">04</div>
+              <div className="font-semibold">Evaluate Safety Assurance Argument</div>
+              <p className="text-gray-700 mt-1">Assess whether AI safety requirements are fulfilled; if not, iterate design/V&V.</p>
+              <div className="mt-2 text-gray-600"><span className="font-semibold">Work products:</span> assurance argument review record</div>
             </li>
-            <li className=\"rounded-2xl border border-gray-200 bg-white p-5\">
-              <div className=\"text-xs font-semibold text-gray-500\">05</div>
-              <div className=\"font-semibold\">Encompassing system integration, V&V and assurance</div>
-              <p className=\"text-gray-700 mt-1\">Integrate AI system into the encompassing system and confirm overall assurance remains valid.</p>
-              <div className=\"mt-2 text-gray-600\"><span className=\"font-semibold\">Work products:</span> integration test reports</div>
+            <li className="rounded-2xl border border-gray-200 bg-white p-5">
+              <div className="text-xs font-semibold text-gray-500">05</div>
+              <div className="font-semibold">Encompassing system integration, V&V and assurance</div>
+              <p className="text-gray-700 mt-1">Integrate AI system into the encompassing system and confirm overall assurance remains valid.</p>
+              <div className="mt-2 text-gray-600"><span className="font-semibold">Work products:</span> integration test reports</div>
             </li>
-            <li className=\"rounded-2xl border border-gray-200 bg-white p-5\">
-              <div className=\"text-xs font-semibold text-gray-500\">06</div>
-              <div className=\"font-semibold\">Operation, monitoring, continuous assurance & decommissioning</div>
-              <p className=\"text-gray-700 mt-1\">Runtime monitoring, OTA change control, field feedback loops, and decommissioning practices; keep the assurance argument valid.</p>
-              <div className=\"mt-2 text-gray-600\"><span className=\"font-semibold\">Work products:</span> monitor calibration, field logs, requalification records</div>
+            <li className="rounded-2xl border border-gray-200 bg-white p-5">
+              <div className="text-xs font-semibold text-gray-500">06</div>
+              <div className="font-semibold">Operation, monitoring, continuous assurance & decommissioning</div>
+              <p className="text-gray-700 mt-1">Runtime monitoring, OTA change control, field feedback loops, and decommissioning practices; keep the assurance argument valid.</p>
+              <div className="mt-2 text-gray-600"><span className="font-semibold">Work products:</span> monitor calibration, field logs, requalification records</div>
             </li>
-            <li className=\"rounded-2xl border border-gray-200 bg-white p-5 md:col-span-3\">
-              <div className=\"text-xs font-semibold text-gray-500\">07</div>
-              <div className=\"font-semibold\">Tool confidence (frameworks & software used for model development)</div>
-              <p className=\"text-gray-700 mt-1\">Establish confidence-in-use or qualification measures for AI development frameworks and tools that could impact safety evidence.</p>
-              <div className=\"mt-2 text-gray-600\"><span className=\"font-semibold\">Work products:</span> tool confidence/qualification rationale</div>
+            <li className="rounded-2xl border border-gray-200 bg-white p-5 md:col-span-3">
+              <div className="text-xs font-semibold text-gray-500">07</div>
+              <div className="font-semibold">Tool confidence (frameworks & software used for model development)</div>
+              <p className="text-gray-700 mt-1">Establish confidence-in-use or qualification measures for AI development frameworks and tools that could impact safety evidence.</p>
+              <div className="mt-2 text-gray-600"><span className="font-semibold">Work products:</span> tool confidence/qualification rationale</div>
             </li>
           </ol>
         </div>
