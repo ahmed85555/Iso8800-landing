@@ -23,11 +23,20 @@ function Badge({ children }) {
   return <span className="px-2 py-1 rounded-full bg-white/70 backdrop-blur text-gray-700 text-xs border border-white/60">{children}</span>
 }
 
-function Stat({ value, label }) {
+function Stat({ value, label, children }) {
   return (
-    <div className="p-4 rounded-2xl bg-white/70 border border-white/60 shadow-sm">
+    <div className="relative p-4 rounded-2xl bg-white/70 border border-white/60 shadow-sm group">
       <div className="text-3xl font-bold">{value}</div>
       <div className="text-sm text-gray-600 mt-1">{label}</div>
+      {/* info trigger */}
+      {children && (
+        <>
+          <div className="absolute top-2 right-2 w-5 h-5 rounded-full bg-gray-900 text-white text-[10px] flex items-center justify-center cursor-help" aria-label="More info">i</div>
+          <div role="tooltip" className="hidden group-hover:block absolute z-20 top-8 right-2 w-72 p-3 rounded-xl border border-gray-200 bg-white shadow-lg text-xs text-gray-700">
+            {children}
+          </div>
+        </>
+      )}
     </div>
   )
 }
@@ -90,10 +99,18 @@ export default function ISO8800Landing() {
             <a href="#faq" className="px-5 py-3 rounded-xl border border-gray-300 bg-white font-semibold">See FAQs</a>
           </div>
           <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-3">
-            <Stat value="90%+" label="ODD coverage before release" />
-            <Stat value=">=0.9" label="OOD AUROC runtime monitors" />
-            <Stat value="0" label="Safety KPI regressions at gates" />
-            <Stat value="4–8 wks" label="Typical pilot timeline" />
+            <Stat value="90%+" label="ODD coverage before release">
+              <div><span className="font-semibold">What:</span> % of ODD scenario bins with sufficient evidence.<br/> <span className="font-semibold">Where:</span> <a className="underline" href="#process">Process</a> → Scenario & Coverage / Robustness; <a className="underline" href="#lifecycle">Lifecycle</a> 03→04 (design & V&V → evaluate).</div>
+            </Stat>
+            <Stat value=">=0.9" label="OOD AUROC runtime monitors">
+              <div><span className="font-semibold">What:</span> quality of out‑of‑distribution detectors (higher is better).<br/> <span className="font-semibold">Where:</span> <a className="underline" href="#process">Process</a> → Runtime Monitoring; <a className="underline" href="#lifecycle">Lifecycle</a> 06 (operation) and validated during 03/04.</div>
+            </Stat>
+            <Stat value="0" label="Safety KPI regressions at gates">
+              <div><span className="font-semibold">What:</span> no degradation vs baseline at release/OTA gates.<br/> <span className="font-semibold">Where:</span> <a className="underline" href="#process">Process</a> → Robustness & V&V → AI Safety Case; <a className="underline" href="#lifecycle">Lifecycle</a> 04/05/09 (evaluate & integration).</div>
+            </Stat>
+            <Stat value="4–8 wks" label="Typical pilot timeline">
+              <div><span className="font-semibold">What:</span> time to run a bounded pilot to first assurance review.<br/> <span className="font-semibold">Where:</span> spans <a className="underline" href="#scope">Scope</a>, <a className="underline" href="#lifecycle">Lifecycle</a> 02–04, and the <a className="underline" href="#process">Process</a> loop.</div>
+            </Stat>
           </div>
         </div>
       </section>
