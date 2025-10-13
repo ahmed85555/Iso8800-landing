@@ -1,72 +1,7 @@
 import React, { useEffect } from "react"
 import { motion } from "framer-motion"
 
-function LifecycleDiagram(){
-  return (
-    <div className="mt-8 rounded-3xl border border-gray-200 bg-white p-5 md:p-8 shadow-sm">
-      <svg viewBox="0 0 1200 480" className="w-full h-auto" aria-label="ISO 8800 lifecycle diagram">
-        <defs>
-          <linearGradient id="grad" x1="0" x2="1">
-            <stop offset="0%" stopColor="#0ea5e9" stopOpacity="0.15"/>
-            <stop offset="100%" stopColor="#10b981" stopOpacity="0.15"/>
-          </linearGradient>
-          <marker id="arrow" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto">
-            <path d="M0,0 L0,6 L9,3 z" fill="#111827" />
-          </marker>
-        </defs>
-        {/* Background split: Encompassing vs AI system */}
-        <rect x="0" y="0" width="540" height="480" fill="url(#grad)"/>
-        <rect x="540" y="0" width="660" height="480" fill="#fff"/>
-        <text x="270" y="36" textAnchor="middle" fontSize="18" fontFamily="Inter,Arial" fill="#111827">Encompassing system (ISO 26262)</text>
-        <text x="870" y="36" textAnchor="middle" fontSize="18" fontFamily="Inter,Arial" fill="#111827">AI system (tailored 26262 + ISO 8800)</text>
 
-        {/* Encompassing side */}
-        <rect x="80" y="80" width="380" height="70" rx="14" fill="#fff" stroke="#e5e7eb"/>
-        <text x="270" y="123" textAnchor="middle" fontSize="16" fontFamily="Inter,Arial" fill="#111827">Allocate safety reqs to AI system</text>
-        <line x1="460" y1="115" x2="540" y2="115" stroke="#111827" strokeWidth="2.2" markerEnd="url(#arrow)"/>
-
-        {/* V-model block */}
-        <rect x="600" y="70" width="520" height="260" rx="20" fill="#f9fafb" stroke="#e5e7eb"/>
-        <text x="860" y="95" textAnchor="middle" fontSize="14" fontFamily="Inter,Arial" fill="#374151">AI system design & V&V</text>
-        {/* Left V */}
-        <path d="M630 110 L720 300" stroke="#94a3b8" strokeWidth="18" fill="none"/>
-        <path d="M720 300 L810 110" stroke="#111827" strokeWidth="18" fill="none"/>
-        {/* Right V */}
-        <path d="M910 110 L1000 300" stroke="#94a3b8" strokeWidth="18" fill="none"/>
-        <path d="M1000 300 L1090 110" stroke="#111827" strokeWidth="18" fill="none"/>
-        {/* Labels on V steps */}
-        <text x="705" y="140" fontSize="12" fontFamily="Inter,Arial" fill="#111827" textAnchor="middle">Data</text>
-        <text x="760" y="190" fontSize="12" fontFamily="Inter,Arial" fill="#111827" textAnchor="middle">AI component</text>
-        <text x="820" y="235" fontSize="12" fontFamily="Inter,Arial" fill="#111827" textAnchor="middle">Implementation</text>
-        <text x="965" y="235" fontSize="12" fontFamily="Inter,Arial" fill="#111827" textAnchor="middle">Comp. verification</text>
-        <text x="1025" y="190" fontSize="12" fontFamily="Inter,Arial" fill="#111827" textAnchor="middle">AI system V&V</text>
-        <text x="1080" y="140" fontSize="12" fontFamily="Inter,Arial" fill="#111827" textAnchor="middle">Safety analysis</text>
-
-        {/* Evaluate, Integrate, Operate blocks */}
-        <rect x="640" y="360" width="180" height="70" rx="14" fill="#fff" stroke="#e5e7eb"/>
-        <text x="730" y="395" fontSize="14" fontFamily="Inter,Arial" fill="#111827" textAnchor="middle">Evaluate assurance</text>
-        <text x="730" y="413" fontSize="12" fontFamily="Inter,Arial" fill="#6b7280" textAnchor="middle">AI safety reqs fulfilled?</text>
-
-        <rect x="840" y="360" width="180" height="70" rx="14" fill="#fff" stroke="#e5e7eb"/>
-        <text x="930" y="395" fontSize="14" fontFamily="Inter,Arial" fill="#111827" textAnchor="middle">Integrate & system V&V</text>
-
-        <rect x="1040" y="360" width="120" height="70" rx="14" fill="#fff" stroke="#e5e7eb"/>
-        <text x="1100" y="395" fontSize="14" fontFamily="Inter,Arial" fill="#111827" textAnchor="middle">Operate</text>
-        <text x="1100" y="413" fontSize="12" fontFamily="Inter,Arial" fill="#6b7280" textAnchor="middle">Monitor & OTA</text>
-
-        {/* Flow arrows */}
-        <line x1="880" y1="330" x2="730" y2="360" stroke="#111827" strokeWidth="2" markerEnd="url(#arrow)"/>
-        <line x1="820" y1="395" x2="840" y2="395" stroke="#111827" strokeWidth="2" markerEnd="url(#arrow)"/>
-        <line x1="1020" y1="395" x2="1040" y2="395" stroke="#111827" strokeWidth="2" markerEnd="url(#arrow)"/>
-
-        {/* Tool confidence strip */}
-        <rect x="80" y="430" width="1080" height="26" rx="10" fill="#eef2ff" stroke="#e5e7eb"/>
-        <text x="620" y="448" textAnchor="middle" fontSize="12" fontFamily="Inter,Arial" fill="#374151">Confidence-in-use of AI dev frameworks & tools</text>
-      </svg>
-      <p className="mt-3 text-xs text-gray-600">Left: allocate safety from the encompassing system. Center: AI system V-model with ISO 8800 activities. Right: evaluate → integrate → operate (monitoring & OTA). Bottom: tool confidence evidence.</p>
-    </div>
-  )
-}
 
 
 // Single-file React landing page for your ISO 8800 offering.
@@ -127,7 +62,6 @@ export default function ISO8800Landing() {
             <a href="#services" className="hover:underline">Services</a>
             <a href="#case" className="hover:underline">Case Study</a>
             <a href="#faq" className="hover:underline">FAQ</a>
-            <a href="#contact" className="px-3 py-1.5 rounded-lg bg-gray-900 text-white">Talk to us</a>
           </nav>
         </div>
       </header>
@@ -152,8 +86,8 @@ export default function ISO8800Landing() {
             <Badge>Evidence‑driven safety case</Badge>
           </div>
           <div className="mt-8 flex flex-wrap gap-3">
-            <a href="#contact" className="px-5 py-3 rounded-xl bg-gray-900 text-white font-semibold">Book a discovery call</a>
-            <a href="#process" className="px-5 py-3 rounded-xl border border-gray-300 bg-white font-semibold">See the process</a>
+            <a href="#services" className="px-5 py-3 rounded-xl bg-gray-900 text-white font-semibold">Get a proposal</a>
+            <a href="#faq" className="px-5 py-3 rounded-xl border border-gray-300 bg-white font-semibold">See FAQs</a>
           </div>
           <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-3">
             <Stat value="90%+" label="ODD coverage before release" />
@@ -199,9 +133,6 @@ export default function ISO8800Landing() {
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">ISO 8800 Lifecycle — from Item to Assured Operation</h2>
           <p className="text-gray-600 mt-2 max-w-3xl">Start at the <span className="font-semibold">encompassing system</span>, derive and refine the <span className="font-semibold">AI system</span>, develop and verify via an AI‑aware V‑model, then evaluate, integrate, and operate with continuous assurance.</p>
-
-          {/** Visual diagram **/}
-          <LifecycleDiagram />
 
           <ol className="mt-6 grid md:grid-cols-3 gap-4 text-sm">
             <li className="rounded-2xl border border-gray-200 bg-white p-5">
@@ -320,7 +251,7 @@ export default function ISO8800Landing() {
             <h3 className="text-xl md:text-2xl font-bold">Ready to pilot ISO 8800 in 4–8 weeks?</h3>
             <p className="text-gray-700 mt-2">Start with a gap assessment and a small, measurable AI item (e.g., lane detection or DMS). We’ll deliver artifacts, gates, and a mini safety case.</p>
             <div className="mt-5 flex flex-wrap gap-3">
-              <a href="#contact" className="px-5 py-3 rounded-xl bg-gray-900 text-white font-semibold">Get a proposal</a>
+              <a href="#services" className="px-5 py-3 rounded-xl bg-gray-900 text-white font-semibold">Get a proposal</a>
               <a href="#faq" className="px-5 py-3 rounded-xl border border-gray-300 bg-white font-semibold">See FAQs</a>
             </div>
           </div>
@@ -352,34 +283,7 @@ export default function ISO8800Landing() {
         </div>
       </section>
 
-      {/* Contact */}
-      <section id="contact" className="py-14">
-        <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Contact</h2>
-          <p className="text-gray-600 mt-2 max-w-2xl">Tell us about your AI item, target ASIL, and current 26262/SOTIF status. We’ll come back with a short plan and timeline.</p>
-          <div className="mt-6 grid md:grid-cols-2 gap-6">
-            <form className="rounded-2xl border border-gray-200 p-5 bg-white shadow-sm" onSubmit={(e)=>{e.preventDefault(); window.location.href='mailto:hello@example.com?subject=ISO%208800%20Pilot&body=Tell%20us%20about%20your%20AI%20item%20and%20ODD...'}}>
-              <div className="grid grid-cols-2 gap-3">
-                <input required placeholder="Name" className="border border-gray-300 rounded-lg px-3 py-2" />
-                <input required type="email" placeholder="Work email" className="border border-gray-300 rounded-lg px-3 py-2" />
-              </div>
-              <input placeholder="Company (Tier‑1/OEM)" className="border border-gray-300 rounded-lg px-3 py-2 mt-3 w-full" />
-              <textarea placeholder="Your AI item, ASIL target, ODD highlights" className="border border-gray-300 rounded-lg px-3 py-2 mt-3 w-full h-28" />
-              <button className="mt-4 px-5 py-3 rounded-xl bg-gray-900 text-white font-semibold">Request proposal</button>
-              <p className="text-xs text-gray-500 mt-2">This opens your mail client with pre-filled details (no backend needed).</p>
-            </form>
-            <div className="rounded-2xl border border-gray-200 p-5 bg-white shadow-sm">
-              <div className="font-semibold">What to prepare</div>
-              <ul className="list-disc list-inside text-sm text-gray-700 mt-2 space-y-1">
-                <li>Brief item definition and ODD outline</li>
-                <li>Any existing KPIs, gold sets, or monitors</li>
-                <li>Release cadence and OTA constraints</li>
-              </ul>
-              <div className="mt-4 text-sm text-gray-600">Prefer WhatsApp/Teams? Add it in the message—we’ll follow up there.</div>
-            </div>
-          </div>
-        </div>
-      </section>
+      
 
       {/* Footer */}
       <footer className="py-10 border-t border-gray-200 text-sm">
@@ -388,7 +292,7 @@ export default function ISO8800Landing() {
           <div className="flex gap-4">
             <a href="#process" className="hover:underline">Process</a>
             <a href="#services" className="hover:underline">Services</a>
-            <a href="#contact" className="hover:underline">Contact</a>
+            <a href="#faq" className="hover:underline">FAQ</a>
           </div>
         </div>
       </footer>
