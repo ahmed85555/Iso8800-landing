@@ -345,7 +345,7 @@ export default function ISO8800Landing() {
               <p className="text-gray-700 mt-1">Yes—whether you use MLflow, DVC/LakeFS, CARLA/esmini, or in‑house tools, we integrate via evidence packs.</p>
             </div>
             <div className="rounded-2xl border border-gray-200 p-4 bg-white">
-              <div className="font-semibold">How do you handle OTA updates?</div>
+              <div className="font-semibold">How do you handle OTA (Over‑the‑Air) updates?</div>
               <p className="text-gray-700 mt-1">We define retraining classes, requalification triggers, shadowing, staged rollout, and rollback—then update the safety case.</p>
             </div>
           </div>
