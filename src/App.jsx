@@ -5,12 +5,12 @@ import { motion, AnimatePresence } from "framer-motion";
 const EJAD_BLUE = "#143D8D";
 const EJAD_RED  = "#E61E62";
 
-/* --- Import images with UPPERCASE .PNG (matches your repo) --- */
-import fusaHero      from "./assets/fusa-hero.PNG";
-import fusaFootprint from "./assets/fusa-footprint.PNG";
-import fusaAct1      from "./assets/fusa-activities-1.PNG";
-import fusaAct2      from "./assets/fusa-activities-2.PNG";
-import beyond26262   from "./assets/beyond-26262.PNG";
+/* --- Import images with UPPERCASE .PNG + ?url (Vite asset) --- */
+import fusaHero      from "./assets/fusa-hero.PNG?url";
+import fusaFootprint from "./assets/fusa-footprint.PNG?url";
+import fusaAct1      from "./assets/fusa-activities-1.PNG?url";
+import fusaAct2      from "./assets/fusa-activities-2.PNG?url";
+import beyond26262   from "./assets/beyond-26262.PNG?url";
 
 const Badge = ({ children }) => (
   <span className="px-2.5 py-1 rounded-lg bg-gray-100 text-gray-700 text-xs">{children}</span>
