@@ -18,50 +18,51 @@ function Card({ title, children }) {
 
 export default function App() {
   const PAGES = ["fusa", "sotif", "iso8800"];
-  const [page, setPage] = React.useState("fusa");
-
-  // --- Autoplay (5s) with pause on hidden tab & reduced motion ---
   const AUTOPLAY_MS = 5000;
+
+  const [page, setPage] = React.useState("fusa");
   const timerRef = React.useRef(null);
-  const prefersReduced = React.useMemo(
-    () =>
-      typeof window !== "undefined" &&
-      window.matchMedia?.("(prefers-reduced-motion: reduce)").matches,
-    []
-  );
+
+  const prefersReduced =
+    typeof window !== "undefined" &&
+    window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
 
   const nextPage = React.useCallback(() => {
     setPage((p) => PAGES[(PAGES.indexOf(p) + 1) % PAGES.length]);
   }, []);
 
-  const clearAutoplay = React.useCallback(() => {
+  const clearTimer = React.useCallback(() => {
     if (timerRef.current) {
-      clearInterval(timerRef.current);
+      clearTimeout(timerRef.current);
       timerRef.current = null;
     }
   }, []);
 
-  const startAutoplay = React.useCallback(() => {
-    if (prefersReduced) return; // respect OS setting
-    clearAutoplay();
-    timerRef.current = setInterval(nextPage, AUTOPLAY_MS);
-  }, [clearAutoplay, nextPage, prefersReduced]);
+  const startTimer = React.useCallback(() => {
+    if (prefersReduced || document.hidden) return;
+    clearTimer();
+    timerRef.current = setTimeout(nextPage, AUTOPLAY_MS);
+  }, [clearTimer, nextPage, prefersReduced]);
 
+  // Restart timer whenever the page changes
   React.useEffect(() => {
-    startAutoplay();
-    const onVis = () =>
-      document.hidden ? clearAutoplay() : startAutoplay();
-    document.addEventListener("visibilitychange", onVis);
-    return () => {
-      document.removeEventListener("visibilitychange", onVis);
-      clearAutoplay();
-    };
-  }, [startAutoplay, clearAutoplay]);
+    startTimer();
+    return clearTimer;
+  }, [page, startTimer, clearTimer]);
 
+  // Pause on tab hidden; resume on visible
+  React.useEffect(() => {
+    const onVis = () => (document.hidden ? clearTimer() : startTimer());
+    document.addEventListener("visibilitychange", onVis);
+    return () => document.removeEventListener("visibilitychange", onVis);
+  }, [startTimer, clearTimer]);
+
+  // Manual nav also resets the timer
   const onTabClick = (id) => {
     setPage(id);
-    startAutoplay(); // restart timer after manual nav
+    // scroll to top and restart timer
     window.scrollTo(0, 0);
+    startTimer();
   };
 
   const Tab = ({ id, label }) => (
@@ -83,6 +84,9 @@ export default function App() {
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.35 }}
       className="min-h-[70vh]"
+      // Pause autoplay while user hovers the content (optional, nice UX)
+      onMouseEnter={clearTimer}
+      onMouseLeave={startTimer}
     >
       {children}
     </motion.div>
