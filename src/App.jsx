@@ -1,9 +1,11 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-/** ----- Brand Colors (match the slides) ----- */
-const EJAD_BLUE = "#143D8D";  // deep blue like your deck
-const EJAD_RED  = "#E61E62";  // magenta/red used in icons & headers
+/** ----- Brand Colors (match your slides) ----- */
+const EJAD_BLUE = "#143D8D";  // deep blue
+const EJAD_RED  = "#E61E62";  // magenta/red
+
+const IMG = (name) => `${import.meta.env.BASE_URL}images/${name}`;
 
 const Badge = ({ children }) => (
   <span className="px-2.5 py-1 rounded-lg bg-gray-100 text-gray-700 text-xs">
@@ -191,11 +193,17 @@ export default function App() {
         <AnimatePresence mode="wait">
           {page === "fusa" && (
             <PageShell>
-              {/* Section 1: your hero slide graphic + bullet strategy */}
+              {/* Section 1: hero graphic + strategy */}
               <div className="grid md:grid-cols-2 gap-6 items-center">
-                <img src="/images/fusa-hero.png" alt="ISO 26262 Functional Safety Services" className="w-full rounded-xl border border-gray-200 shadow-sm" />
+                <img
+                  src={IMG("fusa-hero.png")}
+                  alt="ISO 26262 Functional Safety Services"
+                  className="w-full rounded-xl border border-gray-200 shadow-sm"
+                />
                 <Card>
-                  <h3 className="text-2xl font-extrabold" style={{ color: EJAD_BLUE }}>Our Strategy</h3>
+                  <h3 className="text-2xl font-extrabold" style={{ color: EJAD_BLUE }}>
+                    Our Strategy
+                  </h3>
                   <ul className="mt-3 list-disc pl-5 space-y-1">
                     <li>Apply ISO 26262 development methods up to ASIL-D.</li>
                     <li>Support functional safety assessment and compliance.</li>
@@ -208,27 +216,40 @@ export default function App() {
 
               {/* Section 2: Safety Footprint */}
               <div className="grid md:grid-cols-2 gap-6 items-center mt-10">
-                <img src="/images/fusa-footprint.png" alt="Safety Footprint" className="w-full rounded-xl border border-gray-200 shadow-sm" />
+                <img
+                  src={IMG("fusa-footprint.png")}
+                  alt="Safety Footprint"
+                  className="w-full rounded-xl border border-gray-200 shadow-sm"
+                />
                 <Card>
-                  <h3 className="text-2xl font-extrabold" style={{ color: EJAD_BLUE }}>Safety Footprint</h3>
+                  <h3 className="text-2xl font-extrabold" style={{ color: EJAD_BLUE }}>
+                    Safety Footprint
+                  </h3>
                   <p className="mt-2">
-                    <strong>16+ years</strong> applying ISO 26262 at vehicle and architecture levels (ADAS, EV). Concepts for AUTOSAR, QNX,
-                    Linux embedded, AI, high-performance processors—and more.
+                    <strong>16+ years</strong> applying ISO 26262 at vehicle and architecture levels (ADAS, EV). Concepts
+                    for AUTOSAR, QNX, Linux embedded, AI, high-performance processors—and more.
                   </p>
                 </Card>
               </div>
 
-              {/* Section 3 & 4: Activities (your two detailed slides) */}
+              {/* Section 3 & 4: Activities */}
               <div className="grid md:grid-cols-2 gap-6 mt-10">
-                <img src="/images/fusa-activities-1.png" alt="FuSa Activities Overview" className="w-full rounded-xl border border-gray-200 shadow-sm" />
-                <img src="/images/fusa-activities-2.png" alt="FuSa Activities Detailed" className="w-full rounded-xl border border-gray-200 shadow-sm" />
+                <img
+                  src={IMG("fusa-activities-1.png")}
+                  alt="FuSa Activities Overview"
+                  className="w-full rounded-xl border border-gray-200 shadow-sm"
+                />
+                <img
+                  src={IMG("fusa-activities-2.png")}
+                  alt="FuSa Activities Detailed"
+                  className="w-full rounded-xl border border-gray-200 shadow-sm"
+                />
               </div>
             </PageShell>
           )}
 
           {page === "sotif" && (
             <PageShell>
-              {/* Crop/use the 'Beyond ISO26262' slide: left card for SOTIF */}
               <div className="grid md:grid-cols-2 gap-6 items-start">
                 <Card>
                   <h3 className="text-2xl font-extrabold" style={{ color: EJAD_BLUE }}>
@@ -239,17 +260,22 @@ export default function App() {
                     <li>Analyze sensor capabilities to expose functional limitations (insufficiency).</li>
                     <li>Develop SOTIF requirements at component level.</li>
                     <li>Define trigger conditions and scenario injections for test.</li>
-                    <li>Use cases: <strong>DMS</strong> &amp; <strong>Front Camera</strong>.</li>
+                    <li>
+                      Use cases: <strong>DMS</strong> &amp; <strong>Front Camera</strong>.
+                    </li>
                   </ul>
                 </Card>
-                <img src="/images/beyond-26262.png" alt="Beyond ISO26262 – SOTIF & AI 8800" className="w-full rounded-xl border border-gray-200 shadow-sm" />
+                <img
+                  src={IMG("beyond-26262.png")}
+                  alt="Beyond ISO26262 – SOTIF & AI 8800"
+                  className="w-full rounded-xl border border-gray-200 shadow-sm"
+                />
               </div>
             </PageShell>
           )}
 
           {page === "iso8800" && (
             <PageShell>
-              {/* Right card from the same slide, plus lifecycle steps */}
               <div className="grid md:grid-cols-2 gap-6 items-start">
                 <Card>
                   <h3 className="text-2xl font-extrabold" style={{ color: EJAD_BLUE }}>
@@ -262,26 +288,44 @@ export default function App() {
                     <li>Use cases: <strong>DMS</strong> and ADAS perception.</li>
                   </ul>
                 </Card>
-                <img src="/images/beyond-26262.png" alt="Beyond ISO26262 – SOTIF & AI 8800" className="w-full rounded-xl border border-gray-200 shadow-sm" />
+                <img
+                  src={IMG("beyond-26262.png")}
+                  alt="Beyond ISO26262 – SOTIF & AI 8800"
+                  className="w-full rounded-xl border border-gray-200 shadow-sm"
+                />
               </div>
 
               {/* ISO 8800 lifecycle quick steps */}
               <section className="py-8">
-                <h2 className="text-2xl md:text-3xl font-bold tracking-tight" style={{ color: EJAD_BLUE }}>
+                <h2
+                  className="text-2xl md:text-3xl font-bold tracking-tight"
+                  style={{ color: EJAD_BLUE }}
+                >
                   ISO 8800 Lifecycle — from Item to Assured Operation
                 </h2>
                 <ol className="mt-4 grid md:grid-cols-3 gap-4 text-sm">
                   {[
-                    ["01","Allocate safety to AI system","Safety concept from encompassing system → AI system."],
-                    ["02","Refine AI safety requirements","ODD, performance targets, monitors, fallbacks."],
-                    ["03","Design & V-model","Data, component design, implementation, component verification, system V&V, safety analysis."],
-                    ["04","Evaluate assurance","Are AI safety requirements fulfilled?"],
-                    ["05","Integrate & system V&V","Assurance valid at system level."],
-                    ["06","Operate & monitor (OTA)","Runtime monitoring, OTA requalification, continuous assurance."],
-                    ["07","Tool confidence","Confidence-in-use / qualification for AI frameworks & tools."]
-                  ].map(([n,t,d],i)=>(
-                    <li key={i} className={`rounded-2xl border border-gray-200 bg-white p-5 ${i===6?'md:col-span-3':''}`}>
-                      <div className="text-xs font-semibold" style={{ color: EJAD_RED }}>{n}</div>
+                    ["01", "Allocate safety to AI system", "Safety concept from encompassing system → AI system."],
+                    ["02", "Refine AI safety requirements", "ODD, performance targets, monitors, fallbacks."],
+                    [
+                      "03",
+                      "Design & V-model",
+                      "Data, component design, implementation, component verification, system V&V, safety analysis.",
+                    ],
+                    ["04", "Evaluate assurance", "Are AI safety requirements fulfilled?"],
+                    ["05", "Integrate & system V&V", "Assurance valid at system level."],
+                    ["06", "Operate & monitor (OTA)", "Runtime monitoring, OTA requalification, continuous assurance."],
+                    ["07", "Tool confidence", "Confidence-in-use / qualification for AI frameworks & tools."],
+                  ].map(([n, t, d], i) => (
+                    <li
+                      key={i}
+                      className={`rounded-2xl border border-gray-200 bg-white p-5 ${
+                        i === 6 ? "md:col-span-3" : ""
+                      }`}
+                    >
+                      <div className="text-xs font-semibold" style={{ color: EJAD_RED }}>
+                        {n}
+                      </div>
                       <div className="font-semibold">{t}</div>
                       <p className="text-gray-700 mt-1">{d}</p>
                     </li>
@@ -299,7 +343,9 @@ export default function App() {
           </h2>
           <div className="grid md:grid-cols-3 gap-4 mt-6">
             <Card title="Gap Assessment">
-              Map current practice to <span style={{ color: EJAD_BLUE }}>ISO 26262</span>, <span style={{ color: EJAD_BLUE }}>ISO 21448</span>, and <span style={{ color: EJAD_BLUE }}>ISO 8800</span>. Action plan with prioritized gates & artifacts.
+              Map current practice to <span style={{ color: EJAD_BLUE }}>ISO 26262</span>,{" "}
+              <span style={{ color: EJAD_BLUE }}>ISO 21448</span>, and{" "}
+              <span style={{ color: EJAD_BLUE }}>ISO 8800</span>. Action plan with prioritized gates & artifacts.
             </Card>
             <Card title="Data & Scenario Pipeline">
               Governance, labeling QA, gold sets, and ODD-aligned catalogs for robust validation.
@@ -327,11 +373,19 @@ export default function App() {
 
       <footer className="py-10 border-t border-gray-200 text-sm">
         <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-3">
-          <div>© {new Date().getFullYear()} <span style={{ color: EJAD_RED }}>Ejad</span> Automotive Safety</div>
+          <div>
+            © {new Date().getFullYear()} <span style={{ color: EJAD_RED }}>Ejad</span> Automotive Safety
+          </div>
           <div className="flex gap-4">
-            <button onClick={() => onTabClick("fusa")} className="hover:underline">FuSa</button>
-            <button onClick={() => onTabClick("sotif")} className="hover:underline">SOTIF</button>
-            <button onClick={() => onTabClick("iso8800")} className="hover:underline">ISO 8800</button>
+            <button onClick={() => onTabClick("fusa")} className="hover:underline">
+              FuSa
+            </button>
+            <button onClick={() => onTabClick("sotif")} className="hover:underline">
+              SOTIF
+            </button>
+            <button onClick={() => onTabClick("iso8800")} className="hover:underline">
+              ISO 8800
+            </button>
           </div>
         </div>
       </footer>
