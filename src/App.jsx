@@ -1,6 +1,10 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
+/** ----- Brand Colors (match the slides) ----- */
+const EJAD_BLUE = "#143D8D";  // deep blue like your deck
+const EJAD_RED  = "#E61E62";  // magenta/red used in icons & headers
+
 const Badge = ({ children }) => (
   <span className="px-2.5 py-1 rounded-lg bg-gray-100 text-gray-700 text-xs">
     {children}
@@ -10,8 +14,8 @@ const Badge = ({ children }) => (
 function Card({ title, children }) {
   return (
     <div className="rounded-2xl p-5 border border-gray-200 bg-white shadow-sm">
-      <div className="font-semibold">{title}</div>
-      <p className="text-sm text-gray-600 mt-1">{children}</p>
+      {title && <div className="font-semibold">{title}</div>}
+      <div className="text-sm text-gray-600 mt-1">{children}</div>
     </div>
   );
 }
@@ -44,23 +48,19 @@ export default function App() {
     timerRef.current = setTimeout(nextPage, AUTOPLAY_MS);
   }, [clearTimer, nextPage, prefersReduced]);
 
-  // Restart timer whenever the page changes
   React.useEffect(() => {
     startTimer();
     return clearTimer;
   }, [page, startTimer, clearTimer]);
 
-  // Pause on tab hidden; resume on visible
   React.useEffect(() => {
     const onVis = () => (document.hidden ? clearTimer() : startTimer());
     document.addEventListener("visibilitychange", onVis);
     return () => document.removeEventListener("visibilitychange", onVis);
   }, [startTimer, clearTimer]);
 
-  // Manual nav also resets the timer
   const onTabClick = (id) => {
     setPage(id);
-    // scroll to top and restart timer
     window.scrollTo(0, 0);
     startTimer();
   };
@@ -84,7 +84,6 @@ export default function App() {
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.35 }}
       className="min-h-[70vh]"
-      // Pause autoplay while user hovers the content (optional, nice UX)
       onMouseEnter={clearTimer}
       onMouseLeave={startTimer}
     >
@@ -97,17 +96,14 @@ export default function App() {
       {/* Header */}
       <header className="sticky top-0 z-10 bg-white/70 backdrop-blur border-b border-gray-200">
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-          <a href="#top" className="font-bold tracking-tight">
-            Ejad • Automotive Safety
+          <a href="#top" className="font-extrabold tracking-tight" style={{ color: EJAD_BLUE }}>
+            <span style={{ color: EJAD_RED }}>Ejad</span> • Automotive Safety
           </a>
           <nav className="hidden md:flex items-center gap-2 text-sm">
             <Tab id="fusa" label="FuSa (ISO 26262)" />
             <Tab id="sotif" label="SOTIF (ISO 21448)" />
             <Tab id="iso8800" label="ISO 8800 (AI)" />
-            <a
-              href="#services"
-              className="ml-2 px-3 py-1.5 rounded-lg border border-gray-300 bg-white"
-            >
+            <a href="#services" className="ml-2 px-3 py-1.5 rounded-lg border border-gray-300 bg-white">
               Services
             </a>
             <a href="#faq" className="px-3 py-1.5 rounded-lg hover:bg-gray-100">
@@ -124,7 +120,7 @@ export default function App() {
           <div className="absolute top-24 -left-20 w-72 h-72 bg-indigo-200 rounded-full" />
           <div className="absolute -bottom-24 right-10 w-80 h-80 bg-emerald-200 rounded-full" />
         </div>
-        <div className="max-w-6xl mx-auto px-4 py-14 md:py-20">
+        <div className="max-w-6xl mx-auto px-4 py-10 md:py-14">
           <motion.h1
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
@@ -133,29 +129,20 @@ export default function App() {
           >
             {page === "fusa" && (
               <>
-                Ejad — End-to-End{" "}
-                <span className="bg-gradient-to-r from-sky-600 to-emerald-600 bg-clip-text text-transparent">
-                  Functional Safety
-                </span>{" "}
-                Services
+                <span style={{ color: EJAD_BLUE }}>Functional Safety</span>{" "}
+                <span style={{ color: EJAD_RED }}>ISO 26262</span> Services
               </>
             )}
             {page === "sotif" && (
               <>
-                Ejad —{" "}
-                <span className="bg-gradient-to-r from-sky-600 to-emerald-600 bg-clip-text text-transparent">
-                  SOTIF
-                </span>{" "}
-                (ISO 21448) Services
+                <span style={{ color: EJAD_BLUE }}>SOTIF</span>{" "}
+                <span style={{ color: EJAD_RED }}>(ISO 21448)</span> Services
               </>
             )}
             {page === "iso8800" && (
               <>
-                Ejad — Operationalize{" "}
-                <span className="bg-gradient-to-r from-sky-600 to-emerald-600 bg-clip-text text-transparent">
-                  ISO 8800
-                </span>{" "}
-                for AI
+                <span style={{ color: EJAD_BLUE }}>AI Safety & Assurance</span>{" "}
+                <span style={{ color: EJAD_RED }}>ISO 8800</span>
               </>
             )}
           </motion.h1>
@@ -167,32 +154,32 @@ export default function App() {
             className="mt-3 text-lg text-gray-700 max-w-3xl"
           >
             {page === "fusa" &&
-              "We deliver ISO 26262 across concept, system, hardware/software, and production—integrated with your development V-model and toolchain."}
+              "End-to-end ISO 26262 application—concept, system, HW/SW development, verification and production—integrated with your toolchain."}
             {page === "sotif" &&
-              "We engineer Safety of the Intended Functionality: scenario catalogs, insufficiency analysis, measurable coverage and validation for ADAS/DMS."}
+              "Safety of the Intended Functionality: scenario catalogs, insufficiency analysis, measurable coverage and validation for ADAS/DMS."}
             {page === "iso8800" &&
-              "We turn ISO/PAS 8800 into a concrete, auditable AI safety pipeline that ties into ISO 26262 and SOTIF."}
+              "Operationalize ISO/PAS 8800 with an auditable pipeline that ties into ISO 26262 and SOTIF."}
           </motion.p>
 
           <div className="mt-6 flex flex-wrap gap-2">
             {page === "fusa" && (
               <>
-                <Badge>HARA / SGs / TSR/TSC</Badge>
+                <Badge>HARA • Safety Goals • TSC</Badge>
                 <Badge>ASIL decomposition</Badge>
-                <Badge>SW Safety & tool confidence</Badge>
+                <Badge>SW Safety & Tool Confidence</Badge>
               </>
             )}
             {page === "sotif" && (
               <>
-                <Badge>Scenario & coverage</Badge>
-                <Badge>Insufficient performance</Badge>
-                <Badge>Validation strategy</Badge>
+                <Badge>Scenario & Coverage</Badge>
+                <Badge>Insufficient Performance</Badge>
+                <Badge>Validation Strategy</Badge>
               </>
             )}
             {page === "iso8800" && (
               <>
                 <Badge>ODD → Data → Model → Tests → Runtime</Badge>
-                <Badge>Evidence-driven safety case</Badge>
+                <Badge>Evidence-Driven Safety Case</Badge>
               </>
             )}
           </div>
@@ -204,105 +191,97 @@ export default function App() {
         <AnimatePresence mode="wait">
           {page === "fusa" && (
             <PageShell>
-              <div className="grid md:grid-cols-3 gap-4">
-                <Card title="Concept & System">
-                  Item definition, HARA, safety goals, FTTI, technical safety
-                  concept, ASIL tailoring.
+              {/* Section 1: your hero slide graphic + bullet strategy */}
+              <div className="grid md:grid-cols-2 gap-6 items-center">
+                <img src="/images/fusa-hero.png" alt="ISO 26262 Functional Safety Services" className="w-full rounded-xl border border-gray-200 shadow-sm" />
+                <Card>
+                  <h3 className="text-2xl font-extrabold" style={{ color: EJAD_BLUE }}>Our Strategy</h3>
+                  <ul className="mt-3 list-disc pl-5 space-y-1">
+                    <li>Apply ISO 26262 development methods up to ASIL-D.</li>
+                    <li>Support functional safety assessment and compliance.</li>
+                    <li>Assist OEMs with item definition, safety goals, and FSC.</li>
+                    <li>Decompose high ASILs for lean design.</li>
+                    <li>Propose effective and adequate safety mechanisms.</li>
+                  </ul>
                 </Card>
-                <Card title="HW/SW Development">
-                  SW safety requirements, architecture, unit design &
-                  verification, tool confidence.
+              </div>
+
+              {/* Section 2: Safety Footprint */}
+              <div className="grid md:grid-cols-2 gap-6 items-center mt-10">
+                <img src="/images/fusa-footprint.png" alt="Safety Footprint" className="w-full rounded-xl border border-gray-200 shadow-sm" />
+                <Card>
+                  <h3 className="text-2xl font-extrabold" style={{ color: EJAD_BLUE }}>Safety Footprint</h3>
+                  <p className="mt-2">
+                    <strong>16+ years</strong> applying ISO 26262 at vehicle and architecture levels (ADAS, EV). Concepts for AUTOSAR, QNX,
+                    Linux embedded, AI, high-performance processors—and more.
+                  </p>
                 </Card>
-                <Card title="Verification & Production">
-                  System test, safety case, production/operation planning,
-                  audits.
-                </Card>
+              </div>
+
+              {/* Section 3 & 4: Activities (your two detailed slides) */}
+              <div className="grid md:grid-cols-2 gap-6 mt-10">
+                <img src="/images/fusa-activities-1.png" alt="FuSa Activities Overview" className="w-full rounded-xl border border-gray-200 shadow-sm" />
+                <img src="/images/fusa-activities-2.png" alt="FuSa Activities Detailed" className="w-full rounded-xl border border-gray-200 shadow-sm" />
               </div>
             </PageShell>
           )}
 
           {page === "sotif" && (
             <PageShell>
-              <div className="grid md:grid-cols-3 gap-4">
-                <Card title="Scenario Engineering">
-                  ODD-aligned catalogs, boundary/long-tail bins, measurable
-                  KPIs.
+              {/* Crop/use the 'Beyond ISO26262' slide: left card for SOTIF */}
+              <div className="grid md:grid-cols-2 gap-6 items-start">
+                <Card>
+                  <h3 className="text-2xl font-extrabold" style={{ color: EJAD_BLUE }}>
+                    <span style={{ color: EJAD_RED }}>SOTIF</span> (ISO 21448)
+                  </h3>
+                  <ul className="mt-3 list-disc pl-5 space-y-1">
+                    <li>Identify SOTIF-related scenarios for ADAS systems.</li>
+                    <li>Analyze sensor capabilities to expose functional limitations (insufficiency).</li>
+                    <li>Develop SOTIF requirements at component level.</li>
+                    <li>Define trigger conditions and scenario injections for test.</li>
+                    <li>Use cases: <strong>DMS</strong> &amp; <strong>Front Camera</strong>.</li>
+                  </ul>
                 </Card>
-                <Card title="Insufficient Performance">
-                  Hazardous mis-behavior due to perception/planning limits;
-                  mitigations.
-                </Card>
-                <Card title="Validation & Evidence">
-                  Sim/replay/track, statistics, confidence bounds, safety
-                  argument inputs.
-                </Card>
+                <img src="/images/beyond-26262.png" alt="Beyond ISO26262 – SOTIF & AI 8800" className="w-full rounded-xl border border-gray-200 shadow-sm" />
               </div>
             </PageShell>
           )}
 
           {page === "iso8800" && (
             <PageShell>
-              <section id="scope" className="py-8">
-                <h2 className="text-2xl md:text-3xl font-bold tracking-tight">
-                  Scope & Tailoring (Item → AI system → AI components)
-                </h2>
-                <p className="text-gray-600 mt-2 max-w-3xl">
-                  Per ISO 8800, the AI system is derived from the item. Identify
-                  AI components (model vs non-model) before data/model work
-                  begins.
-                </p>
-              </section>
-              <section id="lifecycle" className="py-8">
-                <h2 className="text-2xl md:text-3xl font-bold tracking-tight">
+              {/* Right card from the same slide, plus lifecycle steps */}
+              <div className="grid md:grid-cols-2 gap-6 items-start">
+                <Card>
+                  <h3 className="text-2xl font-extrabold" style={{ color: EJAD_BLUE }}>
+                    <span style={{ color: EJAD_RED }}>AI Safety</span> (ISO/PAS 8800)
+                  </h3>
+                  <ul className="mt-3 list-disc pl-5 space-y-1">
+                    <li>Analyze the ML boundary; safeguard inputs/outputs.</li>
+                    <li>Define dataset selection during learning; dataset safety.</li>
+                    <li>Set dataset criteria for field testing; runtime monitoring.</li>
+                    <li>Use cases: <strong>DMS</strong> and ADAS perception.</li>
+                  </ul>
+                </Card>
+                <img src="/images/beyond-26262.png" alt="Beyond ISO26262 – SOTIF & AI 8800" className="w-full rounded-xl border border-gray-200 shadow-sm" />
+              </div>
+
+              {/* ISO 8800 lifecycle quick steps */}
+              <section className="py-8">
+                <h2 className="text-2xl md:text-3xl font-bold tracking-tight" style={{ color: EJAD_BLUE }}>
                   ISO 8800 Lifecycle — from Item to Assured Operation
                 </h2>
                 <ol className="mt-4 grid md:grid-cols-3 gap-4 text-sm">
                   {[
-                    [
-                      "01",
-                      "Allocate safety to AI system",
-                      "Safety concept from encompassing system → AI system.",
-                    ],
-                    [
-                      "02",
-                      "Refine AI safety requirements",
-                      "ODD, performance targets, monitors, fallbacks.",
-                    ],
-                    [
-                      "03",
-                      "Design & V-model",
-                      "Data, component design, implementation, component verification, system V&V, safety analysis.",
-                    ],
-                    [
-                      "04",
-                      "Evaluate assurance",
-                      "Are AI safety requirements fulfilled?",
-                    ],
-                    [
-                      "05",
-                      "Integrate & system V&V",
-                      "Assurance valid at system level.",
-                    ],
-                    [
-                      "06",
-                      "Operate & monitor (OTA)",
-                      "Runtime monitoring, OTA requalification, continuous assurance.",
-                    ],
-                    [
-                      "07",
-                      "Tool confidence",
-                      "Confidence-in-use / qualification for AI frameworks & tools.",
-                    ],
-                  ].map(([n, t, d], i) => (
-                    <li
-                      key={i}
-                      className={`rounded-2xl border border-gray-200 bg-white p-5 ${
-                        i === 6 ? "md:col-span-3" : ""
-                      }`}
-                    >
-                      <div className="text-xs font-semibold text-gray-500">
-                        {n}
-                      </div>
+                    ["01","Allocate safety to AI system","Safety concept from encompassing system → AI system."],
+                    ["02","Refine AI safety requirements","ODD, performance targets, monitors, fallbacks."],
+                    ["03","Design & V-model","Data, component design, implementation, component verification, system V&V, safety analysis."],
+                    ["04","Evaluate assurance","Are AI safety requirements fulfilled?"],
+                    ["05","Integrate & system V&V","Assurance valid at system level."],
+                    ["06","Operate & monitor (OTA)","Runtime monitoring, OTA requalification, continuous assurance."],
+                    ["07","Tool confidence","Confidence-in-use / qualification for AI frameworks & tools."]
+                  ].map(([n,t,d],i)=>(
+                    <li key={i} className={`rounded-2xl border border-gray-200 bg-white p-5 ${i===6?'md:col-span-3':''}`}>
+                      <div className="text-xs font-semibold" style={{ color: EJAD_RED }}>{n}</div>
                       <div className="font-semibold">{t}</div>
                       <p className="text-gray-700 mt-1">{d}</p>
                     </li>
@@ -315,36 +294,32 @@ export default function App() {
 
         {/* Shared sections */}
         <section id="services" className="py-10">
-          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight" style={{ color: EJAD_BLUE }}>
             Services
           </h2>
           <div className="grid md:grid-cols-3 gap-4 mt-6">
             <Card title="Gap Assessment">
-              Map your current practice to 26262 / 21448 / 8800. Action plan
-              with prioritized gates and artifacts.
+              Map current practice to <span style={{ color: EJAD_BLUE }}>ISO 26262</span>, <span style={{ color: EJAD_BLUE }}>ISO 21448</span>, and <span style={{ color: EJAD_BLUE }}>ISO 8800</span>. Action plan with prioritized gates & artifacts.
             </Card>
             <Card title="Data & Scenario Pipeline">
-              Governance, labeling QA, gold sets, and ODD-aligned catalogs.
+              Governance, labeling QA, gold sets, and ODD-aligned catalogs for robust validation.
             </Card>
             <Card title="Runtime & OTA Governance">
-              Monitors, thresholds, retraining/OTA requalification; keep safety
-              post-deployment.
+              Monitors, thresholds, retraining/OTA requalification; keep safety post-deployment.
             </Card>
           </div>
         </section>
 
         <section id="faq" className="py-10 border-t border-gray-200">
-          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight" style={{ color: EJAD_BLUE }}>
             FAQs
           </h2>
           <div className="grid md:grid-cols-2 gap-4 mt-6 text-sm">
             <Card title="Do you work with existing toolchains?">
-              Yes—MLflow/DVC, CARLA/esmini, or in-house; we integrate via
-              evidence packs.
+              Yes—MLflow/DVC, CARLA/esmini, or in-house; we integrate via evidence packs.
             </Card>
             <Card title="What’s a good first pilot?">
-              A bounded AI item (e.g., lane detection or DMS) or a focused 26262
-              safety work-package.
+              A bounded AI item (e.g., lane detection or DMS) or a focused 26262 safety work-package.
             </Card>
           </div>
         </section>
@@ -352,17 +327,11 @@ export default function App() {
 
       <footer className="py-10 border-t border-gray-200 text-sm">
         <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-3">
-          <div>© {new Date().getFullYear()} Ejad Automotive Safety</div>
+          <div>© {new Date().getFullYear()} <span style={{ color: EJAD_RED }}>Ejad</span> Automotive Safety</div>
           <div className="flex gap-4">
-            <button onClick={() => onTabClick("fusa")} className="hover:underline">
-              FuSa
-            </button>
-            <button onClick={() => onTabClick("sotif")} className="hover:underline">
-              SOTIF
-            </button>
-            <button onClick={() => onTabClick("iso8800")} className="hover:underline">
-              ISO 8800
-            </button>
+            <button onClick={() => onTabClick("fusa")} className="hover:underline">FuSa</button>
+            <button onClick={() => onTabClick("sotif")} className="hover:underline">SOTIF</button>
+            <button onClick={() => onTabClick("iso8800")} className="hover:underline">ISO 8800</button>
           </div>
         </div>
       </footer>
