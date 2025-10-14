@@ -5,12 +5,12 @@ import { motion, AnimatePresence } from "framer-motion";
 const EJAD_BLUE = "#143D8D";
 const EJAD_RED  = "#E61E62";
 
-/* --- Import images as modules (Vite will rewrite URLs correctly) --- */
-import fusaHero        from "./assets/fusa-hero.png";
-import fusaFootprint   from "./assets/fusa-footprint.png";
-import fusaAct1        from "./assets/fusa-activities-1.png";
-import fusaAct2        from "./assets/fusa-activities-2.png";
-import beyond26262     from "./assets/beyond-26262.png";
+/* --- Import images with UPPERCASE .PNG (matches your repo) --- */
+import fusaHero      from "./assets/fusa-hero.PNG";
+import fusaFootprint from "./assets/fusa-footprint.PNG";
+import fusaAct1      from "./assets/fusa-activities-1.PNG";
+import fusaAct2      from "./assets/fusa-activities-2.PNG";
+import beyond26262   from "./assets/beyond-26262.PNG";
 
 const Badge = ({ children }) => (
   <span className="px-2.5 py-1 rounded-lg bg-gray-100 text-gray-700 text-xs">{children}</span>
@@ -54,6 +54,7 @@ export default function App() {
   }, [clearTimer, nextPage, prefersReduced]);
 
   React.useEffect(() => { startTimer(); return clearTimer; }, [page, startTimer, clearTimer]);
+
   React.useEffect(() => {
     const onVis = () => (document.hidden ? clearTimer() : startTimer());
     document.addEventListener("visibilitychange", onVis);
@@ -123,9 +124,20 @@ export default function App() {
           </motion.p>
 
           <div className="mt-6 flex flex-wrap gap-2">
-            {page==="fusa" && (<><Badge>HARA • Safety Goals • TSC</Badge><Badge>ASIL decomposition</Badge><Badge>SW Safety & Tool Confidence</Badge></>)}
-            {page==="sotif" && (<><Badge>Scenario & Coverage</Badge><Badge>Insufficient Performance</Badge><Badge>Validation Strategy</Badge></>)}
-            {page==="iso8800" && (<><Badge>ODD → Data → Model → Tests → Runtime</Badge><Badge>Evidence-Driven Safety Case</Badge></>)}
+            {page==="fusa" && (<>
+              <Badge>HARA • Safety Goals • TSC</Badge>
+              <Badge>ASIL decomposition</Badge>
+              <Badge>SW Safety & Tool Confidence</Badge>
+            </>)}
+            {page==="sotif" && (<>
+              <Badge>Scenario & Coverage</Badge>
+              <Badge>Insufficient Performance</Badge>
+              <Badge>Validation Strategy</Badge>
+            </>)}
+            {page==="iso8800" && (<>
+              <Badge>ODD → Data → Model → Tests → Runtime</Badge>
+              <Badge>Evidence-Driven Safety Case</Badge>
+            </>)}
           </div>
         </div>
       </section>
