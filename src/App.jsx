@@ -14,7 +14,7 @@ import fusaFootprint from "./assets/fusa-footprint.PNG?url";
 import fusaAct1      from "./assets/fusa-activities-1.PNG?url";
 import fusaAct2      from "./assets/fusa-activities-2.PNG?url";
 
-/* SDV (kept for future pages if needed) */
+/* SDV (kept if you need later) */
 import sdvApp    from "./assets/sdv-app.PNG?url";
 import sdvCi     from "./assets/sdv-ci.PNG?url";
 import sdvDeploy from "./assets/sdv-deploy.PNG?url";
@@ -114,7 +114,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen w-full text-gray-900 bg-gradient-to-b from-sky-50 via-white to-white">
-      {/* HEADER (no logo here) */}
+      {/* HEADER (logo removed here) */}
       <header className="sticky top-0 z-10 bg-white/70 backdrop-blur border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 py-2.5 flex items-center justify-between gap-3">
           <a href="#top" className="font-extrabold tracking-tight text-lg md:text-xl" style={{ color: EJAD_BLUE }}>
@@ -154,7 +154,7 @@ export default function App() {
         </div>
       </header>
 
-      {/* HERO (logo aligned on same line as title, right side) */}
+      {/* HERO (title + right-aligned logo) */}
       <section id="top" className="relative overflow-hidden">
         <div className="absolute inset-0 -z-10 blur-3xl opacity-70" aria-hidden>
           <div className="absolute -top-28 left-1/3 w-96 h-96 bg-sky-200 rounded-full" />
@@ -163,7 +163,6 @@ export default function App() {
         </div>
 
         <div className="max-w-7xl mx-auto px-4 py-8 md:py-10">
-          {/* Title + Logo row */}
           <div className="flex items-center justify-between gap-6">
             <motion.h1
               initial={{ opacity: 0, y: 8 }}
@@ -184,7 +183,6 @@ export default function App() {
               {page === "quality" && (<><span style={{color:EJAD_BLUE}}>Software Quality</span></>)}
             </motion.h1>
 
-            {/* Right-aligned large logo */}
             <motion.img
               initial={{ opacity: 0, y: -6 }}
               animate={{ opacity: 1, y: 0 }}
@@ -251,7 +249,7 @@ export default function App() {
             </PageShell>
           )}
 
-          {/* -------- ECU SW Development & Integration -------- */}
+          {/* -------- ECU Integration -------- */}
           {page === "ecu" && (
             <PageShell>
               <div className="grid md:grid-cols-3 gap-4">
@@ -316,57 +314,35 @@ export default function App() {
             </PageShell>
           )}
 
-          {/* -------- Functional Safety (compact, one-screen) -------- */}
+          {/* -------- Functional Safety (2×2 photos, one-screen) -------- */}
           {page === "fusa" && (
             <PageShell>
-              <div className="grid lg:grid-cols-2 gap-4 items-stretch lg:min-h-[70vh]">
-                {/* LEFT COLUMN: two images stacked */}
-                <div className="grid gap-4">
-                  <img
-                    src={fusaHero}
-                    alt="ISO 26262 Functional Safety Services"
-                    className="w-full h-[32vh] lg:h-[33vh] object-contain rounded-xl border border-gray-200 shadow-sm bg-white"
-                  />
-                  <img
-                    src={fusaFootprint}
-                    alt="Safety Footprint"
-                    className="w-full h-[32vh] lg:h-[33vh] object-contain rounded-xl border border-gray-200 shadow-sm bg-white"
-                  />
-                </div>
-
-                {/* RIGHT COLUMN: strategy + two activity images */}
-                <div className="grid gap-4">
-                  <Card>
-                    <h3 className="text-xl md:text-2xl font-extrabold" style={{ color: EJAD_BLUE }}>
-                      Our Strategy
-                    </h3>
-                    <ul className="mt-2 list-disc pl-5 space-y-1 text-[0.95rem]">
-                      <li>Apply ISO 26262 development methods up to ASIL-D.</li>
-                      <li>Support functional safety assessment and compliance.</li>
-                      <li>Assist OEMs with item definition, safety goals, and FSC.</li>
-                      <li>Decompose high ASILs for lean design.</li>
-                      <li>Propose effective and adequate safety mechanisms.</li>
-                    </ul>
-                  </Card>
-
-                  <div className="grid grid-cols-2 gap-4">
-                    <img
-                      src={fusaAct1}
-                      alt="FuSa Activities Overview"
-                      className="w-full h-[24vh] object-contain rounded-xl border border-gray-200 shadow-sm bg-white"
-                    />
-                    <img
-                      src={fusaAct2}
-                      alt="FuSa Activities Detailed"
-                      className="w-full h-[24vh] object-contain rounded-xl border border-gray-200 shadow-sm bg-white"
-                    />
-                  </div>
-                </div>
+              <div className="grid lg:grid-cols-2 gap-4 lg:min-h-[70vh]">
+                <img
+                  src={fusaHero}
+                  alt="ISO 26262 Functional Safety Services"
+                  className="w-full h-[32vh] object-contain rounded-xl border border-gray-200 shadow-sm bg-white"
+                />
+                <img
+                  src={fusaFootprint}
+                  alt="Safety Footprint"
+                  className="w-full h-[32vh] object-contain rounded-xl border border-gray-200 shadow-sm bg-white"
+                />
+                <img
+                  src={fusaAct1}
+                  alt="FuSa Activities Overview"
+                  className="w-full h-[32vh] object-contain rounded-xl border border-gray-200 shadow-sm bg-white"
+                />
+                <img
+                  src={fusaAct2}
+                  alt="FuSa Activities Detailed"
+                  className="w-full h-[32vh] object-contain rounded-xl border border-gray-200 shadow-sm bg-white"
+                />
               </div>
             </PageShell>
           )}
 
-          {/* -------- SOTIF Services -------- */}
+          {/* -------- SOTIF -------- */}
           {page === "sotif" && (
             <PageShell>
               <div className="grid md:grid-cols-3 gap-4">
@@ -499,7 +475,7 @@ export default function App() {
             </PageShell>
           )}
 
-          {/* -------- eJad AI Solutions (with image) -------- */}
+          {/* -------- eJad AI Solutions -------- */}
           {page === "ai" && (
             <PageShell>
               <div className="grid md:grid-cols-2 gap-6 items-start">
@@ -521,116 +497,4 @@ export default function App() {
                   <Card title="Achievements">
                     <ul className="mt-2 list-disc pl-5 space-y-1">
                       <li>Faster test design and higher scenario coverage via AI assistance.</li>
-                      <li>Large reduction in log-triage time using clustering and LLM summaries.</li>
-                      <li>Consistent, auditable TARA across components with traceable reasoning.</li>
-                      <li>Shortened safety analysis review cycles with fewer manual errors.</li>
-                      <li>Repeatable, evidence-backed toolchain validations aligned to audits.</li>
-                    </ul>
-                  </Card>
-                </div>
-              </div>
-            </PageShell>
-          )}
-
-          {/* -------- SW Testing & Validation -------- */}
-          {page === "testing" && (
-            <PageShell>
-              <div className="grid md:grid-cols-3 gap-4">
-                <Box
-                  title="Services"
-                  points={[
-                    "Unit & integration testing (branch/MCDC coverage)",
-                    "System qualification & black-box testing",
-                    "Fault-injection campaigns",
-                    "OEM conformance verification",
-                  ]}
-                />
-                <Box
-                  title="How We Work"
-                  points={[
-                    "Test design tied to requirements & risks",
-                    "Continuous execution in CI/HiL",
-                    "Defect triage with root-cause analysis",
-                  ]}
-                />
-                <Box
-                  title="Achievements"
-                  points={[
-                    "Higher defect detection before vehicle tests",
-                    "Actionable quality dashboards",
-                    "Gate-ready evidence packages",
-                  ]}
-                />
-              </div>
-            </PageShell>
-          )}
-
-          {/* -------- SW Quality -------- */}
-          {page === "quality" && (
-            <PageShell>
-              <div className="grid md:grid-cols-3 gap-4">
-                <Box
-                  title="Services"
-                  points={[
-                    "Quality assurance & audits (ASPICE / ISO 9001)",
-                    "Implementing & reviewing software standards",
-                    "Process coaching and gap closure",
-                  ]}
-                />
-                <Box
-                  title="How We Work"
-                  points={[
-                    "Tailored process assets and checklists",
-                    "Objective audits and improvement plans",
-                    "Release quality gates & sign-off",
-                  ]}
-                />
-                <Box
-                  title="Achievements"
-                  points={[
-                    "Higher audit pass rates",
-                    "Reduced rework through earlier review",
-                    "Consistent, documented releases",
-                  ]}
-                />
-              </div>
-            </PageShell>
-          )}
-        </AnimatePresence>
-
-        {/* Shared Services */}
-        <section id="services" className="py-10">
-          <h2 className="text-2xl md:text-3xl font-bold tracking-tight" style={{ color: EJAD_BLUE }}>
-            Services
-          </h2>
-          <div className="grid md:grid-cols-3 gap-4 mt-6">
-            <Card title="Gap Assessment">
-              Map practice to <span style={{ color: EJAD_BLUE }}>ISO 26262</span>,{" "}
-              <span style={{ color: EJAD_BLUE }}>ISO 21448</span>,{" "}
-              <span style={{ color: EJAD_BLUE }}>ISO 8800</span>. Action plan with prioritized gates & artifacts.
-            </Card>
-            <Card title="Data & Scenario Pipeline">
-              Governance, labeling QA, gold sets, ODD-aligned catalogs and coverage dashboards.
-            </Card>
-            <Card title="Runtime & OTA Governance">
-              Monitors, thresholds, retraining/OTA re-qualification; keep safety post-deployment.
-            </Card>
-          </div>
-        </section>
-      </div>
-
-      <footer className="py-10 border-t border-gray-200 text-sm">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-3">
-          <div>© {new Date().getFullYear()} <EJadMark /> Automotive Safety</div>
-          <div className="flex gap-4">
-            {PAGES.map(k => (
-              <button key={k} onClick={() => onTabClick(k)} className="hover:underline capitalize">
-                {k}
-              </button>
-            ))}
-          </div>
-        </div>
-      </footer>
-    </div>
-  );
-}
+                      <li>Large reduction in log-tria
