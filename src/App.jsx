@@ -5,13 +5,18 @@ import { motion, AnimatePresence } from "framer-motion";
 const EJAD_BLUE = "#143D8D";
 const EJAD_RED  = "#E61E62";
 
-/* --- FuSa images (UPPERCASE PNG + ?url so Vite handles them) --- */
+/* Functional Safety images (keep as before) */
 import fusaHero      from "./assets/fusa-hero.PNG?url";
 import fusaFootprint from "./assets/fusa-footprint.PNG?url";
 import fusaAct1      from "./assets/fusa-activities-1.PNG?url";
 import fusaAct2      from "./assets/fusa-activities-2.PNG?url";
 
-/* UI bits */
+/* SDV page images (add these three files to src/assets/) */
+import sdvApp     from "./assets/sdv-app.PNG?url";
+import sdvCi      from "./assets/sdv-ci.PNG?url";
+import sdvDeploy  from "./assets/sdv-deploy.PNG?url";
+
+/* UI atoms */
 const Badge = ({ children }) => (
   <span className="px-2.5 py-1 rounded-lg bg-gray-100 text-gray-700 text-xs">{children}</span>
 );
@@ -25,20 +30,22 @@ function Card({ title, children }) {
   );
 }
 
-const Step = ({ n, title, desc }) => (
+const Box = ({ title, points = [], highlight }) => (
   <div className="rounded-2xl border border-gray-200 bg-white p-5">
-    <div className="text-xs font-semibold" style={{ color: EJAD_RED }}>{n}</div>
     <div className="font-semibold">{title}</div>
-    <p className="text-gray-700 mt-1">{desc}</p>
+    <ul className="mt-2 list-disc pl-5 space-y-1">
+      {points.map((p, i) => <li key={i}>{p}</li>)}
+    </ul>
+    {highlight && <p className="mt-3 text-sm text-emerald-700">{highlight}</p>}
   </div>
 );
 
 export default function App() {
-  /* Pages (rotation includes new domains) */
   const PAGES = [
     "fusa", "sotif", "iso8800",
     "appdev", "ecu", "devops",
-    "testing", "systems", "quality", "security", "sdv"
+    "testing", "systems", "quality",
+    "security", "sdv"
   ];
   const AUTOPLAY_MS = 5000;
 
@@ -108,7 +115,7 @@ export default function App() {
           </a>
           <nav className="hidden md:flex items-center gap-2 text-sm overflow-x-auto max-w-[80%]">
             <Tab id="fusa" label="FuSa (ISO 26262)" />
-            <Tab id="sotif" label="SOTIF (ISO 21448)" />
+            <Tab id="sotif" label="SOTIF" />
             <Tab id="iso8800" label="ISO 8800 (AI)" />
             <Tab id="appdev" label="Application Dev" />
             <Tab id="ecu" label="ECU SW Integration" />
@@ -138,7 +145,7 @@ export default function App() {
             className="text-3xl md:text-5xl font-extrabold tracking-tight"
           >
             {page === "fusa"    && (<><span style={{color:EJAD_BLUE}}>Functional Safety</span> <span style={{color:EJAD_RED}}>ISO 26262</span> Services</>)}
-            {page === "sotif"   && (<><span style={{color:EJAD_BLUE}}>SOTIF</span> <span style={{color:EJAD_RED}}>(ISO 21448)</span> Services</>)}
+            {page === "sotif"   && (<><span style={{color:EJAD_BLUE}}>SOTIF</span> <span style={{color:EJAD_RED}}>Services</span></>)}
             {page === "iso8800" && (<><span style={{color:EJAD_BLUE}}>AI Safety & Assurance</span> <span style={{color:EJAD_RED}}>ISO 8800</span></>)}
             {page === "appdev"  && (<><span style={{color:EJAD_BLUE}}>Application Development</span></>)}
             {page === "ecu"     && (<><span style={{color:EJAD_BLUE}}>ECU Software Development</span> <span style={{color:EJAD_RED}}>& Integration</span></>)}
@@ -157,16 +164,16 @@ export default function App() {
             className="mt-3 text-lg text-gray-700 max-w-3xl"
           >
             {page === "fusa"    && "End-to-end ISO 26262 application—concept, system, HW/SW development, verification and production—integrated with your toolchain."}
-            {page === "sotif"   && "SOTIF with ASPICE discipline: scenario catalogs, insufficiency analysis, measurable coverage & validation wrapped by SYS/SWE/SUP processes."}
-            {page === "iso8800" && "Operationalize ISO/PAS 8800 and connect to ASPICE SWE/SUP for an auditable AI pipeline."}
-            {page === "appdev"  && "ECU application logic and model-based design across AUTOSAR & non-AUTOSAR platforms following ASPICE SWE.1-6."}
-            {page === "ecu"     && "Complete ECU software integration—Classic & Adaptive AUTOSAR—under ASPICE SWE.2–SWE.6 and SUP.x support."}
-            {page === "devops"  && "ARTOP/toolchains, CI/CD automation and dashboards aligned to SUP.1/2/8/9 and MAN.3."}
-            {page === "testing" && "Unit/integration/system qualification mapped to SWE.4/5, SYS.4 and SUP.8."}
-            {page === "systems" && "Requirements, architecture, documentation and traceability under SYS.1-3 and MAN.3."}
-            {page === "quality" && "ASPICE SUP.2 QA with SUP.1 CM, SUP.9 Problem Resolution and release evidence."}
-            {page === "security"&& "Cybersecurity with ASPICE for CS extensions (SEC.*), linked to MAN.3, SUP.1/9 and SWE.x gates."}
-            {page === "sdv"     && "Application dev, CI/CD and containerized deployment for SDV mapped to SWE/SUP processes."}
+            {page === "sotif"   && "We turn SOTIF into a practical program: scenarios, sensor capability analysis, requirements, and measurable validation for ADAS and DMS."}
+            {page === "iso8800" && "A complete AI safety service—dataset governance, model boundary protections, runtime monitoring and OTA re-qualification."}
+            {page === "appdev"  && "ECU application logic with model-based design across AUTOSAR & non-AUTOSAR platforms."}
+            {page === "ecu"     && "Complete ECU software integration—Classic & Adaptive AUTOSAR, application and OEM extensions."}
+            {page === "devops"  && "Build pipelines, dashboards, code quality automation, and metrics at scale."}
+            {page === "testing" && "Unit, integration, system qualification, fault injection and conformance verification."}
+            {page === "systems" && "Requirements, architecture, documentation and full traceability ownership."}
+            {page === "quality" && "Quality assurance per industry standards with actionable reviews and audits."}
+            {page === "security"&& "Cybersecurity analysis and implementation—TARA, HSM development and secure stack integration."}
+            {page === "sdv"     && "SDV application development, DevOps CI/CD, and containerized deployment with the platforms you use."}
           </motion.p>
         </div>
       </section>
@@ -174,7 +181,7 @@ export default function App() {
       {/* BODY */}
       <div className="max-w-7xl mx-auto px-4 pb-16">
         <AnimatePresence mode="wait">
-          {/* ----------- FuSa: REVERTED with images & content ----------- */}
+          {/* -------- Functional Safety (unchanged, with images) -------- */}
           {page === "fusa" && (
             <PageShell>
               <div className="grid md:grid-cols-2 gap-6 items-center">
@@ -213,196 +220,335 @@ export default function App() {
             </PageShell>
           )}
 
-          {/* ----------- SOTIF (ASPICE-aligned steps) ----------- */}
+          {/* -------- SOTIF Services -------- */}
           {page === "sotif" && (
             <PageShell>
               <div className="grid md:grid-cols-3 gap-4">
-                <Step n="SYS.1" title="Stakeholder & ODD Needs"
-                      desc="Elicit needs/assumptions; define operational design domain and safety intents."/>
-                <Step n="SYS.2" title="System Requirements (SOTIF)"
-                      desc="Derive SOTIF requirements incl. insufficiency mitigations and monitors."/>
-                <Step n="SYS.3" title="System Architecture"
-                      desc="Allocate SOTIF functions to HW/SW; define diagnostics & fallback paths."/>
-                <Step n="SWE.1" title="SW Requirements"
-                      desc="SW-level SOTIF reqs for perception/planning; trace to scenarios & tests."/>
-                <Step n="SWE.5" title="SW Testing"
-                      desc="Scenario coverage, KPIs with confidence bounds; replay/sim/track testing."/>
-                <Step n="SUP.8" title="Validation & Evidence"
-                      desc="Consolidate results and safety case work-products for assessment."/>
+                <Box
+                  title="Services"
+                  points={[
+                    "SOTIF scenario identification & catalogs for ADAS systems",
+                    "Sensor capability analysis to expose functional limitations",
+                    "SOTIF requirements at system & component level",
+                    "Trigger-condition design and scenario injection for testing",
+                    "Use cases: DMS & Front Camera",
+                  ]}
+                />
+                <Box
+                  title="How We Work"
+                  points={[
+                    "Start from item assumptions & ODD to map SOTIF goals",
+                    "Tie scenarios to requirements, tests and KPIs",
+                    "Execute replay/sim/track campaigns",
+                  ]}
+                />
+                <Box
+                  title="Achievements"
+                  points={[
+                    "Improved unsafe-event prevention via targeted monitors",
+                    "Scenario coverage reports your auditors can trust",
+                    "Clear evidence packs for safety reviews",
+                  ]}
+                />
               </div>
             </PageShell>
           )}
 
-          {/* ----------- ISO 8800 (ASPICE-bridged) ----------- */}
+          {/* -------- ISO 8800 (AI Safety) Services -------- */}
           {page === "iso8800" && (
             <PageShell>
               <div className="grid md:grid-cols-3 gap-4">
-                <Step n="SYS.2" title="Allocate AI Safety"
-                      desc="From encompassing system to AI system & components (models/non-models)."/>
-                <Step n="SWE.1" title="Data & Model Requirements"
-                      desc="Dataset safety, performance targets, monitors, and acceptance criteria."/>
-                <Step n="SWE.2" title="Design"
-                      desc="Model boundary defenses, feature governance, and runtime hooks."/>
-                <Step n="SWE.3" title="Implementation"
-                      desc="Training/build pipelines with traceability; tool confidence planning (SUP.1/2)."/>
-                <Step n="SWE.4/5" title="Integration & Test"
-                      desc="Component verification and AI system V&V tied to scenarios & KPIs."/>
-                <Step n="SUP.8" title="Operate & OTA"
-                      desc="Runtime monitoring, thresholds, retraining gates, continuous assurance."/>
+                <Box
+                  title="Services"
+                  points={[
+                    "Model boundary analysis & safeguards for inputs/outputs",
+                    "Dataset selection & governance during learning",
+                    "Field testing dataset criteria & runtime monitors",
+                    "OTA re-qualification and continuous assurance",
+                    "Tool confidence for AI frameworks and data tooling",
+                  ]}
+                />
+                <Box
+                  title="How We Work"
+                  points={[
+                    "Start from item → AI system → AI components",
+                    "Define ODD & performance targets with KPIs",
+                    "Build traceable pipelines from data to deployment",
+                  ]}
+                />
+                <Box
+                  title="Achievements"
+                  points={[
+                    "Stable KPIs at safety gates with no regression at release",
+                    "Faster model iterations with preserved compliance evidence",
+                    "Audit-ready safety case artifacts",
+                  ]}
+                />
               </div>
             </PageShell>
           )}
 
-          {/* ----------- Application Development (ASPICE SWE.1–6) ----------- */}
+          {/* -------- Application Development -------- */}
           {page === "appdev" && (
             <PageShell>
               <div className="grid md:grid-cols-3 gap-4">
-                <Step n="SWE.1" title="SW Requirements"
-                      desc="Functional/non-functional reqs, interfaces, safety hooks, diagnostics."/>
-                <Step n="SWE.2" title="SW Architecture & Design"
-                      desc="Components, RTE interfaces, model-based design, error handling."/>
-                <Step n="SWE.3" title="Implementation"
-                      desc="Auto/hand code, coding standards, static analysis, unit tests."/>
-                <Step n="SWE.4" title="Integration"
-                      desc="Build profiles, stubs/mocks, integration tests on bench/HiL."/>
-                <Step n="SWE.5" title="Testing"
-                      desc="Branch/MCDC, functional & performance tests; defect management (SUP.9)."/>
-                <Step n="SWE.6" title="Release"
-                      desc="Release notes, evidence pack, configuration baselines (SUP.1)."/>
+                <Box
+                  title="Services"
+                  points={[
+                    "ECU application logic development",
+                    "Model-based design (Simulink/Stateflow or code-first)",
+                    "Autosar & Non-Autosar applications",
+                  ]}
+                />
+                <Box
+                  title="How We Work"
+                  points={[
+                    "Requirements capture & interface design",
+                    "RTE/diagnostics/NVM integration with safety hooks",
+                    "Static analysis & unit testing in CI",
+                  ]}
+                />
+                <Box
+                  title="Achievements"
+                  points={[
+                    "Rapid feature delivery with consistent quality",
+                    "Clean hand-off to platform teams",
+                    "Reduced debug cycle time through early testing",
+                  ]}
+                />
               </div>
             </PageShell>
           )}
 
-          {/* ----------- ECU SW Development & Integration ----------- */}
+          {/* -------- ECU SW Development & Integration -------- */}
           {page === "ecu" && (
             <PageShell>
               <div className="grid md:grid-cols-3 gap-4">
-                <Step n="SWE.2" title="Platform Design"
-                      desc="MCAL/BSP, memory/clock, safety-related init; Classic/Adaptive AUTOSAR."/>
-                <Step n="SWE.3" title="Implementation"
-                      desc="Drivers, BSW config, ara::com, SOME/IP/DoIP, OEM extensions."/>
-                <Step n="SWE.4" title="Integration"
-                      desc="ECU bring-up, flashing, diagnostics, secure boot; integration tests."/>
-                <Step n="SWE.5" title="Testing"
-                      desc="Feature/system tests on HiL/rig; timing/stack/resource checks."/>
-                <Step n="SUP.1" title="Configuration Mgmt"
-                      desc="Baselines, change control, traceability to HW/SW items."/>
-                <Step n="SWE.6" title="Release"
-                      desc="Calibration, variant mgmt, and production hand-off."/>
+                <Box
+                  title="Services"
+                  points={[
+                    "Complete ECU software integration",
+                    "Classic & Adaptive AUTOSAR configuration",
+                    "Application & OEM extensions integration",
+                    "Secure boot, flashing, diagnostics bring-up",
+                  ]}
+                />
+                <Box
+                  title="How We Work"
+                  points={[
+                    "MCAL/BSP, memory/clock & driver setup",
+                    "ara::com, SOME/IP/DoIP, network & diagnostics",
+                    "Integration tests on bench & HiL",
+                  ]}
+                />
+                <Box
+                  title="Achievements"
+                  points={[
+                    "Predictable boot & runtime performance",
+                    "Robust memory/stack usage & timing",
+                    "Frictionless production release",
+                  ]}
+                />
               </div>
             </PageShell>
           )}
 
-          {/* ----------- DevOps / CI-CD & Tooling ----------- */}
+          {/* -------- DevOps — CI/CD & Tooling -------- */}
           {page === "devops" && (
             <PageShell>
               <div className="grid md:grid-cols-3 gap-4">
-                <Step n="MAN.3" title="Project & Build Strategy"
-                      desc="Branching, versioning, quality gates, Definition of Done."/>
-                <Step n="SUP.1" title="Configuration Management"
-                      desc="Artifacts, baselines, SBOMs, traceability, license governance."/>
-                <Step n="SUP.8" title="Continuous Integration"
-                      desc="Automated builds/tests, coverage & metrics dashboards."/>
-                <Step n="SUP.2" title="Quality Assurance"
-                      desc="Process audits, compliance checks, tool qualification where needed."/>
-                <Step n="SUP.9" title="Problem Resolution"
-                      desc="Defect workflow, RCAs, CAPAs, and trend analysis."/>
-                <Step n="SWE.6" title="Release & Delivery"
-                      desc="Signed artifacts, reproducible builds, evidence export."/>
+                <Box
+                  title="Services"
+                  points={[
+                    "Build-automation pipeline design",
+                    "Front-end dashboards for metrics/quality",
+                    "Metrics/Build statistics & automatic merge to main",
+                    "Automated code-quality & policy gates",
+                  ]}
+                />
+                <Box
+                  title="How We Work"
+                  points={[
+                    "Artifact retention, SBOMs & traceability",
+                    "Scalable runners and cache strategy",
+                    "Security scanning and release sign-off",
+                  ]}
+                />
+                <Box
+                  title="Achievements"
+                  points={[
+                    "Shorter lead time for changes",
+                    "Consistent releases with repeatable builds",
+                    "Clear visibility across teams",
+                  ]}
+                />
               </div>
             </PageShell>
           )}
 
-          {/* ----------- SW Testing & Validation ----------- */}
+          {/* -------- SW Testing & Validation -------- */}
           {page === "testing" && (
             <PageShell>
               <div className="grid md:grid-cols-3 gap-4">
-                <Step n="SWE.4" title="Integration Testing"
-                      desc="Module integration, interface robustness, fault injection."/>
-                <Step n="SWE.5" title="SW Qualification"
-                      desc="Black-box tests, coverage goals (branch/MCDC), performance/stress."/>
-                <Step n="SYS.4" title="System Integration & Test"
-                      desc="Vehicle/rig tests, diagnostics validation, regression packs."/>
-                <Step n="SUP.8" title="Validation Evidence"
-                      desc="KPIs, traceability, sign-off with objective compliance."/>
-                <Step n="SUP.9" title="Defect Mgmt"
-                      desc="Issue triage, RCAs, fix-verify loops, trend KPIs."/>
-                <Step n="SWE.6" title="Release Readiness"
-                      desc="Exit criteria, gate reviews, final approval."/>
+                <Box
+                  title="Services"
+                  points={[
+                    "Unit & integration testing (branch/MCDC coverage)",
+                    "System qualification & black-box testing",
+                    "Fault-injection campaigns",
+                    "OEM conformance verification",
+                  ]}
+                />
+                <Box
+                  title="How We Work"
+                  points={[
+                    "Test design tied to requirements & risks",
+                    "Continuous execution in CI/HiL",
+                    "Defect triage with root-cause analysis",
+                  ]}
+                />
+                <Box
+                  title="Achievements"
+                  points={[
+                    "Higher defect detection before vehicle tests",
+                    "Actionable quality dashboards",
+                    "Gate-ready evidence packages",
+                  ]}
+                />
               </div>
             </PageShell>
           )}
 
-          {/* ----------- System Engineering ----------- */}
+          {/* -------- System Engineering -------- */}
           {page === "systems" && (
             <PageShell>
               <div className="grid md:grid-cols-3 gap-4">
-                <Step n="SYS.1" title="Stakeholder Requirements"
-                      desc="Capture needs, constraints, regulations; maintain change control."/>
-                <Step n="SYS.2" title="System Requirements"
-                      desc="Derive measurable, testable system requirements and interfaces."/>
-                <Step n="SYS.3" title="Architecture & Allocation"
-                      desc="HW/SW partitioning, safety/security allocation, ICDs."/>
-                <Step n="MAN.3" title="Planning & Monitoring"
-                      desc="Milestones, risks, KPIs and progress control."/>
-                <Step n="SUP.1" title="Configuration/Traceability"
-                      desc="End-to-end trace across reqs → design → code → tests."/>
-                <Step n="ACQ.4" title="Supplier Monitoring"
-                      desc="Supplier agreements, reviews, acceptance criteria."/>
+                <Box
+                  title="Services"
+                  points={[
+                    "HW & SW requirements analysis",
+                    "Functional ownership & documentation",
+                    "Bidirectional traceability",
+                  ]}
+                />
+                <Box
+                  title="How We Work"
+                  points={[
+                    "Stakeholder needs → measurable specs",
+                    "Architecture & interface definitions",
+                    "Controlled change process and reviews",
+                  ]}
+                />
+                <Box
+                  title="Achievements"
+                  points={[
+                    "Aligned teams with fewer late surprises",
+                    "Clear design baselines & evidence",
+                    "Faster reviews and approvals",
+                  ]}
+                />
               </div>
             </PageShell>
           )}
 
-          {/* ----------- SW Quality ----------- */}
+          {/* -------- SW Quality -------- */}
           {page === "quality" && (
             <PageShell>
               <div className="grid md:grid-cols-3 gap-4">
-                <Step n="SUP.2" title="Quality Assurance"
-                      desc="Process tailoring, audits, objective evidence, compliance reports."/>
-                <Step n="SUP.1" title="Configuration Management"
-                      desc="Baselines, change control, release records and SBOMs."/>
-                <Step n="SUP.4" title="Verification Support"
-                      desc="Reviews, walkthroughs, static analysis, metrics & gate checks."/>
-                <Step n="SUP.9" title="Problem Resolution"
-                      desc="Nonconformance handling, CAPA, trend analysis."/>
-                <Step n="SWE.6" title="Release Quality"
-                      desc="Acceptance criteria, sign-off package, archive & retention."/>
-                <Step n="MAN.3" title="Quality Planning"
-                      desc="Plan quality goals, KPIs and continuous improvement."/>
+                <Box
+                  title="Services"
+                  points={[
+                    "Quality assurance & audits (ASPICE / ISO 9001)",
+                    "Implementing & reviewing software standards",
+                    "Process coaching and gap closure",
+                  ]}
+                />
+                <Box
+                  title="How We Work"
+                  points={[
+                    "Tailored process assets and checklists",
+                    "Objective audits and improvement plans",
+                    "Release quality gates & sign-off",
+                  ]}
+                />
+                <Box
+                  title="Achievements"
+                  points={[
+                    "Higher audit pass rates",
+                    "Reduced rework through earlier review",
+                    "Consistent, documented releases",
+                  ]}
+                />
               </div>
             </PageShell>
           )}
 
-          {/* ----------- Cyber Security ----------- */}
+          {/* -------- Cyber Security -------- */}
           {page === "security" && (
             <PageShell>
               <div className="grid md:grid-cols-3 gap-4">
-                <Step n="SEC.1" title="TARA & Goals"
-                      desc="Threat analysis & risk assessment; cybersecurity goals & claims."/>
-                <Step n="SEC.2" title="CS Requirements"
-                      desc="Security requirements & controls; trace to system/software."/>
-                <Step n="SEC.3" title="CS Concept & Architecture"
-                      desc="HSM, keys, secure boot/update, comms hardening."/>
-                <Step n="SEC.4/5" title="Implementation & Verification"
-                      desc="Crypto integration, secure coding, fuzzing, penetration tests."/>
-                <Step n="SUP.9" title="Vulnerability Mgmt"
-                      desc="Issue intake, triage, patch strategy, disclosure."/>
-                <Step n="MAN.3" title="CS Management"
-                      desc="Plans, roles, monitoring; link to SWE/SUP for releases."/>
+                <Box
+                  title="Services"
+                  points={[
+                    "Cybersecurity analysis per TARA",
+                    "HSM development & secure boot/update",
+                    "Secure stack integration",
+                  ]}
+                />
+                <Box
+                  title="How We Work"
+                  points={[
+                    "Threat modeling & risk treatment mapping",
+                    "Crypto, keys, and policy enforcement",
+                    "Pen-testing, fuzzing and vulnerability mgmt",
+                  ]}
+                />
+                <Box
+                  title="Achievements"
+                  points={[
+                    "Hardened ECUs with traceable controls",
+                    "Repeatable response to vulnerabilities",
+                    "Security evidence for audits",
+                  ]}
+                />
               </div>
             </PageShell>
           )}
 
-          {/* ----------- SDV Services ----------- */}
+          {/* -------- eJad SDV Services (with your images) -------- */}
           {page === "sdv" && (
             <PageShell>
-              <div className="grid md:grid-cols-3 gap-4">
-                <Step n="SWE.1–3" title="SDV App Dev"
-                      desc="Rust/C++ services, APIs, framework tailoring (e.g., Velocitas)." />
-                <Step n="SUP.8" title="CI/CD Automation"
-                      desc="Pipelines, code quality metrics, automated tests, quality gates." />
-                <Step n="SWE.6" title="Containerized Delivery"
-                      desc="Docker/OCI packaging, orchestration, rollout & monitoring." />
+              <div className="grid md:grid-cols-3 gap-6 items-start">
+                <div className="space-y-4">
+                  <h3 className="font-semibold" style={{ color: EJAD_BLUE }}>SDV Application Development</h3>
+                  <ul className="list-disc pl-5 text-sm space-y-1">
+                    <li>Application development using Rust / C++</li>
+                    <li>Velocitas development framework tailoring</li>
+                    <li>Runtime OS deployment (Ankaios, ThreadX, …)</li>
+                  </ul>
+                  <img src={sdvApp} alt="SDV Application Development" className="w-full rounded-xl border border-gray-200 shadow-sm" />
+                </div>
+
+                <div className="space-y-4">
+                  <h3 className="font-semibold" style={{ color: EJAD_BLUE }}>DevOps CI/CD</h3>
+                  <ul className="list-disc pl-5 text-sm space-y-1">
+                    <li>Build-automation pipeline design</li>
+                    <li>Front-end dashboards for visibility</li>
+                    <li>Metrics/Build statistics & auto-merge to main</li>
+                    <li>Automated metrics and code quality gates</li>
+                  </ul>
+                  <img src={sdvCi} alt="DevOps CI/CD" className="w-full rounded-xl border border-gray-200 shadow-sm" />
+                </div>
+
+                <div className="space-y-4">
+                  <h3 className="font-semibold" style={{ color: EJAD_BLUE }}>Containerization & Deployment</h3>
+                  <ul className="list-disc pl-5 text-sm space-y-1">
+                    <li>Automation & streamlining of deployment processes</li>
+                    <li>Docker-based deployment, scaling, updates & monitoring</li>
+                    <li>Orchestration of containerized apps</li>
+                  </ul>
+                  <img src={sdvDeploy} alt="Containerization & Deployment" className="w-full rounded-xl border border-gray-200 shadow-sm" />
+                </div>
               </div>
             </PageShell>
           )}
@@ -418,7 +564,7 @@ export default function App() {
             <Card title="Gap Assessment">
               Map practice to <span style={{ color: EJAD_BLUE }}>ISO 26262</span>,{" "}
               <span style={{ color: EJAD_BLUE }}>ISO 21448</span>,{" "}
-              <span style={{ color: EJAD_BLUE }}>ISO 8800</span> and ASPICE. Action plan with prioritized gates & artifacts.
+              <span style={{ color: EJAD_BLUE }}>ISO 8800</span>. Action plan with prioritized gates & artifacts.
             </Card>
             <Card title="Data & Scenario Pipeline">
               Governance, labeling QA, gold sets, ODD-aligned catalogs and coverage dashboards.
