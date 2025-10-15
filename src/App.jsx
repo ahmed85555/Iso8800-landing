@@ -5,18 +5,21 @@ import { motion, AnimatePresence } from "framer-motion";
 const EJAD_BLUE = "#143D8D";
 const EJAD_RED  = "#E61E62";
 
-/* ---- Functional Safety images (kept as before) ---- */
+/* ---- Logos / Images ---- */
+import ejadLogo      from "./assets/ejad-logo.PNG?url";
+
+/* Functional Safety */
 import fusaHero      from "./assets/fusa-hero.PNG?url";
 import fusaFootprint from "./assets/fusa-footprint.PNG?url";
 import fusaAct1      from "./assets/fusa-activities-1.PNG?url";
 import fusaAct2      from "./assets/fusa-activities-2.PNG?url";
 
-/* ---- SDV images ---- */
+/* SDV */
 import sdvApp    from "./assets/sdv-app.PNG?url";
 import sdvCi     from "./assets/sdv-ci.PNG?url";
 import sdvDeploy from "./assets/sdv-deploy.PNG?url";
 
-/* ---- eJad AI Solutions hero image ---- */
+/* AI */
 import aiHero    from "./assets/ai-hero.PNG?url";
 
 /* ---- Small UI helpers ---- */
@@ -44,7 +47,7 @@ const Box = ({ title, points = [], highlight }) => (
 );
 
 export default function App() {
-  /* Pages in rotation (now includes AI) */
+  /* Pages in rotation (includes AI + SDV) */
   const PAGES = [
     "fusa", "sotif", "iso8800",
     "appdev", "ecu", "devops",
@@ -113,10 +116,11 @@ export default function App() {
     <div className="min-h-screen w-full text-gray-900 bg-gradient-to-b from-sky-50 via-white to-white">
       {/* Header */}
       <header className="sticky top-0 z-10 bg-white/70 backdrop-blur border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+        <div className="relative max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
           <a href="#top" className="font-extrabold tracking-tight" style={{ color: EJAD_BLUE }}>
             <EJadMark /> • Automotive Safety
           </a>
+
           <nav className="hidden md:flex items-center gap-2 text-sm overflow-x-auto max-w-[80%]">
             <Tab id="fusa" label="FuSa (ISO 26262)" />
             <Tab id="sotif" label="SOTIF" />
@@ -131,6 +135,13 @@ export default function App() {
             <Tab id="ai" label="AI Solutions" />
             <Tab id="sdv" label="SDV Services" />
           </nav>
+
+          {/* eJad logo pinned to upper-right */}
+          <img
+            src={ejadLogo}
+            alt="eJad logo"
+            className="hidden md:block h-10 absolute right-4 top-2 select-none pointer-events-none"
+          />
         </div>
       </header>
 
