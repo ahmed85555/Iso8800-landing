@@ -47,16 +47,16 @@ const Box = ({ title, points = [], highlight }) => (
 );
 
 export default function App() {
-  /* Pages in rotation (includes AI + SDV) */
+  /* Reordered pages: systems → ecu → appdev → fusa → sotif → iso8800 → security → devops → ai → testing → quality */
   const PAGES = [
+    "systems", "ecu", "appdev",
     "fusa", "sotif", "iso8800",
-    "appdev", "ecu", "devops",
-    "testing", "systems", "quality",
-    "security", "ai", "sdv"
+    "security", "devops", "ai",
+    "testing", "quality"
   ];
   const AUTOPLAY_MS = 5000;
 
-  const [page, setPage] = React.useState("fusa");
+  const [page, setPage] = React.useState(PAGES[0]);
   const timerRef = React.useRef(null);
 
   const prefersReduced =
@@ -114,34 +114,50 @@ export default function App() {
 
   return (
     <div className="min-h-screen w-full text-gray-900 bg-gradient-to-b from-sky-50 via-white to-white">
-      {/* Header */}
+      {/* Header: logo aligned right, larger height for slogan */}
       <header className="sticky top-0 z-10 bg-white/70 backdrop-blur border-b border-gray-200">
-        <div className="relative max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-          <a href="#top" className="font-extrabold tracking-tight" style={{ color: EJAD_BLUE }}>
+        <div className="max-w-7xl mx-auto px-4 py-2.5 flex items-center justify-between gap-3">
+          <a href="#top" className="font-extrabold tracking-tight text-lg md:text-xl" style={{ color: EJAD_BLUE }}>
             <EJadMark /> • Automotive Safety
           </a>
 
-          <nav className="hidden md:flex items-center gap-2 text-sm overflow-x-auto max-w-[80%]">
-            <Tab id="fusa" label="FuSa (ISO 26262)" />
-            <Tab id="sotif" label="SOTIF" />
-            <Tab id="iso8800" label="ISO 8800 (AI)" />
-            <Tab id="appdev" label="Application Dev" />
-            <Tab id="ecu" label="ECU SW Integration" />
-            <Tab id="devops" label="DevOps / CI-CD" />
-            <Tab id="testing" label="SW Testing" />
+          <nav className="hidden lg:flex items-center gap-2 text-sm overflow-x-auto">
             <Tab id="systems" label="System Eng." />
+            <Tab id="ecu"     label="ECU Integration" />
+            <Tab id="appdev"  label="Application Dev" />
+            <Tab id="fusa"    label="FuSa (ISO 26262)" />
+            <Tab id="sotif"   label="SOTIF" />
+            <Tab id="iso8800" label="ISO 8800 (AI)" />
+            <Tab id="security"label="Cyber Security" />
+            <Tab id="devops"  label="DevOps / CI-CD" />
+            <Tab id="ai"      label="AI Solutions" />
+            <Tab id="testing" label="SW Testing" />
             <Tab id="quality" label="SW Quality" />
-            <Tab id="security" label="Cyber Security" />
-            <Tab id="ai" label="AI Solutions" />
-            <Tab id="sdv" label="SDV Services" />
           </nav>
 
-          {/* eJad logo pinned to upper-right */}
+          {/* eJad logo (bigger to show slogan) */}
           <img
             src={ejadLogo}
             alt="eJad logo"
-            className="hidden md:block h-10 absolute right-4 top-2 select-none pointer-events-none"
+            className="h-12 sm:h-14 md:h-16 shrink-0"
           />
+        </div>
+
+        {/* Secondary row for nav on smaller screens */}
+        <div className="lg:hidden max-w-7xl mx-auto px-4 pb-2">
+          <div className="flex items-center gap-2 overflow-x-auto">
+            <Tab id="systems" label="System Eng." />
+            <Tab id="ecu"     label="ECU" />
+            <Tab id="appdev"  label="App Dev" />
+            <Tab id="fusa"    label="FuSa" />
+            <Tab id="sotif"   label="SOTIF" />
+            <Tab id="iso8800" label="ISO8800" />
+            <Tab id="security"label="Security" />
+            <Tab id="devops"  label="DevOps" />
+            <Tab id="ai"      label="AI" />
+            <Tab id="testing" label="Testing" />
+            <Tab id="quality" label="Quality" />
+          </div>
         </div>
       </header>
 
@@ -160,18 +176,17 @@ export default function App() {
             transition={{ duration: 0.6 }}
             className="text-3xl md:text-5xl font-extrabold tracking-tight"
           >
+            {page === "systems" && (<><span style={{color:EJAD_BLUE}}>System Engineering</span></>)}
+            {page === "ecu"     && (<><span style={{color:EJAD_BLUE}}>ECU Software Development</span> <span style={{color:EJAD_RED}}>& Integration</span></>)}
+            {page === "appdev"  && (<><span style={{color:EJAD_BLUE}}>Application Development</span></>)}
             {page === "fusa"    && (<><span style={{color:EJAD_BLUE}}>Functional Safety</span> <span style={{color:EJAD_RED}}>ISO 26262</span> Services</>)}
             {page === "sotif"   && (<><span style={{color:EJAD_BLUE}}>SOTIF</span> <span style={{color:EJAD_RED}}>Services</span></>)}
             {page === "iso8800" && (<><span style={{color:EJAD_BLUE}}>AI Safety & Assurance</span> <span style={{color:EJAD_RED}}>ISO 8800</span></>)}
-            {page === "appdev"  && (<><span style={{color:EJAD_BLUE}}>Application Development</span></>)}
-            {page === "ecu"     && (<><span style={{color:EJAD_BLUE}}>ECU Software Development</span> <span style={{color:EJAD_RED}}>& Integration</span></>)}
-            {page === "devops"  && (<><span style={{color:EJAD_BLUE}}>DevOps</span> <span style={{color:EJAD_RED}}>CI/CD & Tooling</span></>)}
-            {page === "testing" && (<><span style={{color:EJAD_BLUE}}>Software Testing</span> <span style={{color:EJAD_RED}}>& Validation</span></>)}
-            {page === "systems" && (<><span style={{color:EJAD_BLUE}}>System Engineering</span></>)}
-            {page === "quality" && (<><span style={{color:EJAD_BLUE}}>Software Quality</span></>)}
             {page === "security"&& (<><span style={{color:EJAD_BLUE}}>Cyber Security</span></>)}
+            {page === "devops"  && (<><span style={{color:EJAD_BLUE}}>DevOps</span> <span style={{color:EJAD_RED}}>CI/CD & Tooling</span></>)}
             {page === "ai"      && (<><span style={{color:EJAD_BLUE}}>eJad</span> <span style={{color:EJAD_RED}}>AI Solutions</span></>)}
-            {page === "sdv"     && (<><span style={{color:EJAD_BLUE}}>eJad SDV Services</span></>)}
+            {page === "testing" && (<><span style={{color:EJAD_BLUE}}>Software Testing</span> <span style={{color:EJAD_RED}}>& Validation</span></>)}
+            {page === "quality" && (<><span style={{color:EJAD_BLUE}}>Software Quality</span></>)}
           </motion.h1>
 
           <motion.p
@@ -180,18 +195,17 @@ export default function App() {
             transition={{ delay: 0.1, duration: 0.6 }}
             className="mt-3 text-lg text-gray-700 max-w-3xl"
           >
+            {page === "systems" && "Requirements, architecture, documentation and full traceability ownership."}
+            {page === "ecu"     && "Complete ECU software integration—Classic & Adaptive AUTOSAR, application and OEM extensions."}
+            {page === "appdev"  && "ECU application logic with model-based design across AUTOSAR & non-AUTOSAR platforms."}
             {page === "fusa"    && "End-to-end ISO 26262 application—concept, system, HW/SW development, verification and production—integrated with your toolchain."}
             {page === "sotif"   && "We turn SOTIF into a practical program: scenarios, sensor capability analysis, requirements, and measurable validation for ADAS and DMS."}
             {page === "iso8800" && "A complete AI safety service—dataset governance, model boundary protections, runtime monitoring and OTA re-qualification."}
-            {page === "appdev"  && "ECU application logic with model-based design across AUTOSAR & non-AUTOSAR platforms."}
-            {page === "ecu"     && "Complete ECU software integration—Classic & Adaptive AUTOSAR, application and OEM extensions."}
-            {page === "devops"  && "Build pipelines, dashboards, code quality automation, and metrics at scale."}
-            {page === "testing" && "Unit, integration, system qualification, fault injection and conformance verification."}
-            {page === "systems" && "Requirements, architecture, documentation and full traceability ownership."}
-            {page === "quality" && "Quality assurance per industry standards with actionable reviews and audits."}
             {page === "security"&& "Cybersecurity analysis and implementation—TARA, HSM development and secure stack integration."}
+            {page === "devops"  && "Build pipelines, dashboards, code quality automation, and metrics at scale."}
             {page === "ai"      && "Applied AI that accelerates testing, failure analysis, cybersecurity risk workflows, and functional-safety evidence generation—integrated with your toolchain."}
-            {page === "sdv"     && "SDV application development, DevOps CI/CD, and containerized deployment with the platforms you use."}
+            {page === "testing" && "Unit, integration, system qualification, fault injection and conformance verification."}
+            {page === "quality" && "Quality assurance per industry standards with actionable reviews and audits."}
           </motion.p>
         </div>
       </section>
@@ -199,6 +213,103 @@ export default function App() {
       {/* BODY */}
       <div className="max-w-7xl mx-auto px-4 pb-16">
         <AnimatePresence mode="wait">
+          {/* -------- System Engineering -------- */}
+          {page === "systems" && (
+            <PageShell>
+              <div className="grid md:grid-cols-3 gap-4">
+                <Box
+                  title="Services"
+                  points={[
+                    "HW & SW requirements analysis",
+                    "Functional ownership & documentation",
+                    "Bidirectional traceability",
+                  ]}
+                />
+                <Box
+                  title="How We Work"
+                  points={[
+                    "Stakeholder needs → measurable specs",
+                    "Architecture & interface definitions",
+                    "Controlled change process and reviews",
+                  ]}
+                />
+                <Box
+                  title="Achievements"
+                  points={[
+                    "Aligned teams with fewer late surprises",
+                    "Clear design baselines & evidence",
+                    "Faster reviews and approvals",
+                  ]}
+                />
+              </div>
+            </PageShell>
+          )}
+
+          {/* -------- ECU SW Development & Integration -------- */}
+          {page === "ecu" && (
+            <PageShell>
+              <div className="grid md:grid-cols-3 gap-4">
+                <Box
+                  title="Services"
+                  points={[
+                    "Complete ECU software integration",
+                    "Classic & Adaptive AUTOSAR configuration",
+                    "Application & OEM extensions integration",
+                    "Secure boot, flashing, diagnostics bring-up",
+                  ]}
+                />
+                <Box
+                  title="How We Work"
+                  points={[
+                    "MCAL/BSP, memory/clock & driver setup",
+                    "ara::com, SOME/IP/DoIP, network & diagnostics",
+                    "Integration tests on bench & HiL",
+                  ]}
+                />
+                <Box
+                  title="Achievements"
+                  points={[
+                    "Predictable boot & runtime performance",
+                    "Robust memory/stack usage & timing",
+                    "Frictionless production release",
+                  ]}
+                />
+              </div>
+            </PageShell>
+          )}
+
+          {/* -------- Application Development -------- */}
+          {page === "appdev" && (
+            <PageShell>
+              <div className="grid md:grid-cols-3 gap-4">
+                <Box
+                  title="Services"
+                  points={[
+                    "ECU application logic development",
+                    "Model-based design (Simulink/Stateflow or code-first)",
+                    "Autosar & Non-Autosar applications",
+                  ]}
+                />
+                <Box
+                  title="How We Work"
+                  points={[
+                    "Requirements capture & interface design",
+                    "RTE/diagnostics/NVM integration with safety hooks",
+                    "Static analysis & unit testing in CI",
+                  ]}
+                />
+                <Box
+                  title="Achievements"
+                  points={[
+                    "Rapid feature delivery with consistent quality",
+                    "Clean hand-off to platform teams",
+                    "Reduced debug cycle time through early testing",
+                  ]}
+                />
+              </div>
+            </PageShell>
+          )}
+
           {/* -------- Functional Safety (unchanged, with images) -------- */}
           {page === "fusa" && (
             <PageShell>
@@ -306,65 +417,32 @@ export default function App() {
             </PageShell>
           )}
 
-          {/* -------- Application Development -------- */}
-          {page === "appdev" && (
+          {/* -------- Cyber Security -------- */}
+          {page === "security" && (
             <PageShell>
               <div className="grid md:grid-cols-3 gap-4">
                 <Box
                   title="Services"
                   points={[
-                    "ECU application logic development",
-                    "Model-based design (Simulink/Stateflow or code-first)",
-                    "Autosar & Non-Autosar applications",
+                    "Cybersecurity analysis per TARA",
+                    "HSM development & secure boot/update",
+                    "Secure stack integration",
                   ]}
                 />
                 <Box
                   title="How We Work"
                   points={[
-                    "Requirements capture & interface design",
-                    "RTE/diagnostics/NVM integration with safety hooks",
-                    "Static analysis & unit testing in CI",
+                    "Threat modeling & risk treatment mapping",
+                    "Crypto, keys, and policy enforcement",
+                    "Pen-testing, fuzzing and vulnerability mgmt",
                   ]}
                 />
                 <Box
                   title="Achievements"
                   points={[
-                    "Rapid feature delivery with consistent quality",
-                    "Clean hand-off to platform teams",
-                    "Reduced debug cycle time through early testing",
-                  ]}
-                />
-              </div>
-            </PageShell>
-          )}
-
-          {/* -------- ECU SW Development & Integration -------- */}
-          {page === "ecu" && (
-            <PageShell>
-              <div className="grid md:grid-cols-3 gap-4">
-                <Box
-                  title="Services"
-                  points={[
-                    "Complete ECU software integration",
-                    "Classic & Adaptive AUTOSAR configuration",
-                    "Application & OEM extensions integration",
-                    "Secure boot, flashing, diagnostics bring-up",
-                  ]}
-                />
-                <Box
-                  title="How We Work"
-                  points={[
-                    "MCAL/BSP, memory/clock & driver setup",
-                    "ara::com, SOME/IP/DoIP, network & diagnostics",
-                    "Integration tests on bench & HiL",
-                  ]}
-                />
-                <Box
-                  title="Achievements"
-                  points={[
-                    "Predictable boot & runtime performance",
-                    "Robust memory/stack usage & timing",
-                    "Frictionless production release",
+                    "Hardened ECUs with traceable controls",
+                    "Repeatable response to vulnerabilities",
+                    "Security evidence for audits",
                   ]}
                 />
               </div>
@@ -404,6 +482,39 @@ export default function App() {
             </PageShell>
           )}
 
+          {/* -------- eJad AI Solutions (with image) -------- */}
+          {page === "ai" && (
+            <PageShell>
+              <div className="grid md:grid-cols-2 gap-6 items-start">
+                <img
+                  src={aiHero}
+                  alt="eJad AI solutions"
+                  className="w-full rounded-xl border border-gray-200 shadow-sm"
+                />
+                <div className="grid gap-4">
+                  <Card title="Services">
+                    <ul className="mt-2 list-disc pl-5 space-y-1">
+                      <li><strong>Testing:</strong> AI-powered test-cases generator (SWE4/5 scope).</li>
+                      <li><strong>Problem Analysis:</strong> AI-powered failure-logs analysis (clustering, duplicate detection, RCA hints).</li>
+                      <li><strong>Cyber Security:</strong> AI-powered TARA workflow (threat ID, risk scoring, control mapping).</li>
+                      <li><strong>Functional Safety:</strong> Safety analysis automation for HARA, FMEA, and FTA with traceable outputs.</li>
+                      <li><strong>Functional Safety:</strong> Compiler & toolchain safety validation (qualification evidence packs).</li>
+                    </ul>
+                  </Card>
+                  <Card title="Achievements">
+                    <ul className="mt-2 list-disc pl-5 space-y-1">
+                      <li>Faster test design and higher scenario coverage via AI assistance.</li>
+                      <li>Large reduction in log-triage time using clustering and LLM summaries.</li>
+                      <li>Consistent, auditable TARA across components with traceable reasoning.</li>
+                      <li>Shortened safety analysis review cycles with fewer manual errors.</li>
+                      <li>Repeatable, evidence-backed toolchain validations aligned to audits.</li>
+                    </ul>
+                  </Card>
+                </div>
+              </div>
+            </PageShell>
+          )}
+
           {/* -------- SW Testing & Validation -------- */}
           {page === "testing" && (
             <PageShell>
@@ -431,38 +542,6 @@ export default function App() {
                     "Higher defect detection before vehicle tests",
                     "Actionable quality dashboards",
                     "Gate-ready evidence packages",
-                  ]}
-                />
-              </div>
-            </PageShell>
-          )}
-
-          {/* -------- System Engineering -------- */}
-          {page === "systems" && (
-            <PageShell>
-              <div className="grid md:grid-cols-3 gap-4">
-                <Box
-                  title="Services"
-                  points={[
-                    "HW & SW requirements analysis",
-                    "Functional ownership & documentation",
-                    "Bidirectional traceability",
-                  ]}
-                />
-                <Box
-                  title="How We Work"
-                  points={[
-                    "Stakeholder needs → measurable specs",
-                    "Architecture & interface definitions",
-                    "Controlled change process and reviews",
-                  ]}
-                />
-                <Box
-                  title="Achievements"
-                  points={[
-                    "Aligned teams with fewer late surprises",
-                    "Clear design baselines & evidence",
-                    "Faster reviews and approvals",
                   ]}
                 />
               </div>
@@ -500,110 +579,6 @@ export default function App() {
               </div>
             </PageShell>
           )}
-
-          {/* -------- Cyber Security -------- */}
-          {page === "security" && (
-            <PageShell>
-              <div className="grid md:grid-cols-3 gap-4">
-                <Box
-                  title="Services"
-                  points={[
-                    "Cybersecurity analysis per TARA",
-                    "HSM development & secure boot/update",
-                    "Secure stack integration",
-                  ]}
-                />
-                <Box
-                  title="How We Work"
-                  points={[
-                    "Threat modeling & risk treatment mapping",
-                    "Crypto, keys, and policy enforcement",
-                    "Pen-testing, fuzzing and vulnerability mgmt",
-                  ]}
-                />
-                <Box
-                  title="Achievements"
-                  points={[
-                    "Hardened ECUs with traceable controls",
-                    "Repeatable response to vulnerabilities",
-                    "Security evidence for audits",
-                  ]}
-                />
-              </div>
-            </PageShell>
-          )}
-
-          {/* -------- eJad AI Solutions (with image) -------- */}
-          {page === "ai" && (
-            <PageShell>
-              <div className="grid md:grid-cols-2 gap-6 items-start">
-                <img
-                  src={aiHero}
-                  alt="eJad AI solutions"
-                  className="w-full rounded-xl border border-gray-200 shadow-sm"
-                />
-                <div className="grid gap-4">
-                  <Card title="Services">
-                    <ul className="mt-2 list-disc pl-5 space-y-1">
-                      <li><strong>Testing:</strong> AI-powered test-cases generator (SWE4/5 scope).</li>
-                      <li><strong>Problem Analysis:</strong> AI-powered failure-logs analysis (clustering, duplicate detection, RCA hints).</li>
-                      <li><strong>Cyber Security:</strong> AI-powered TARA workflow (threat ID, risk scoring, control mapping).</li>
-                      <li><strong>Functional Safety:</strong> Safety analysis automation for HARA, FMEA, and FTA with traceable outputs.</li>
-                      <li><strong>Functional Safety:</strong> Compiler & toolchain safety validation (qualification evidence packs).</li>
-                    </ul>
-                  </Card>
-                  <Card title="Achievements">
-                    <ul className="mt-2 list-disc pl-5 space-y-1">
-                      <li>Faster test design and higher scenario coverage via AI assistance.</li>
-                      <li>Large reduction in log-triage time using clustering and LLM summaries.</li>
-                      <li>Consistent, auditable TARA across components with traceable reasoning.</li>
-                      <li>Shortened safety analysis review cycles with fewer manual errors.</li>
-                      <li>Repeatable, evidence-backed toolchain validations aligned to audits.</li>
-                    </ul>
-                  </Card>
-                </div>
-              </div>
-            </PageShell>
-          )}
-
-          {/* -------- eJad SDV Services (with images) -------- */}
-          {page === "sdv" && (
-            <PageShell>
-              <div className="grid md:grid-cols-3 gap-6 items-start">
-                <div className="space-y-4">
-                  <h3 className="font-semibold" style={{ color: EJAD_BLUE }}>SDV Application Development</h3>
-                  <ul className="list-disc pl-5 text-sm space-y-1">
-                    <li>Application development using Rust / C++</li>
-                    <li>Velocitas development framework tailoring</li>
-                    <li>Runtime OS deployment (Ankaios, ThreadX, …)</li>
-                  </ul>
-                  <img src={sdvApp} alt="SDV Application Development" className="w-full rounded-xl border border-gray-200 shadow-sm" />
-                </div>
-
-                <div className="space-y-4">
-                  <h3 className="font-semibold" style={{ color: EJAD_BLUE }}>DevOps CI/CD</h3>
-                  <ul className="list-disc pl-5 text-sm space-y-1">
-                    <li>Build-automation pipeline design</li>
-                    <li>Front-end dashboards for visibility</li>
-                    <li>Metrics/Build statistics & auto-merge to main</li>
-                    <li>Automated metrics and code-quality gates</li>
-                  </ul>
-                  <img src={sdvCi} alt="DevOps CI/CD" className="w-full rounded-xl border border-gray-200 shadow-sm" />
-                </div>
-
-                <div className="space-y-4">
-                  <h3 className="font-semibold" style={{ color: EJAD_BLUE }}>Containerization & Deployment</h3>
-                  <ul className="list-disc pl-5 text-sm space-y-1">
-                    <li>Automation & streamlining of deployment processes</li>
-                    <li>Docker-based deployment, scaling, updates & monitoring</li>
-                    <li>Orchestration of containerized apps</li>
-                  </ul>
-                  <img src={sdvDeploy} alt="Containerization & Deployment" className="w-full rounded-xl border border-gray-200 shadow-sm" />
-                </div>
-              </div>
-            </PageShell>
-          )}
-
         </AnimatePresence>
 
         {/* Shared Services */}
@@ -631,8 +606,11 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-3">
           <div>© {new Date().getFullYear()} <EJadMark /> Automotive Safety</div>
           <div className="flex gap-4">
-            {["fusa","sotif","iso8800","appdev","ecu","devops","testing","systems","quality","security","ai","sdv"]
-              .map(k => <button key={k} onClick={() => onTabClick(k)} className="hover:underline capitalize">{k}</button>)}
+            {PAGES.map(k => (
+              <button key={k} onClick={() => onTabClick(k)} className="hover:underline capitalize">
+                {k}
+              </button>
+            ))}
           </div>
         </div>
       </footer>
