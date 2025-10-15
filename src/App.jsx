@@ -1,16 +1,11 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-/* --- Brand colors --- */
+/* ---- Brand colors ---- */
 const EJAD_BLUE = "#143D8D";
 const EJAD_RED  = "#E61E62";
 
-/* --- FuSa images (uppercase .PNG + ?url for Vite) --- */
-import fusaHero      from "./assets/fusa-hero.PNG?url";
-import fusaFootprint from "./assets/fusa-footprint.PNG?url";
-import fusaAct1      from "./assets/fusa-activities-1.PNG?url";
-import fusaAct2      from "./assets/fusa-activities-2.PNG?url";
-
+/* ---- Reusable small bits ---- */
 const Badge = ({ children }) => (
   <span className="px-2.5 py-1 rounded-lg bg-gray-100 text-gray-700 text-xs">
     {children}
@@ -21,13 +16,26 @@ function Card({ title, children }) {
   return (
     <div className="rounded-2xl p-5 border border-gray-200 bg-white shadow-sm">
       {title && <div className="font-semibold">{title}</div>}
-      <div className="text-sm text-gray-600 mt-1">{children}</div>
+      <div className="text-sm text-gray-700 mt-1">{children}</div>
     </div>
   );
 }
 
+const Step = ({ n, title, desc }) => (
+  <div className="rounded-2xl border border-gray-200 bg-white p-5">
+    <div className="text-xs font-semibold" style={{ color: EJAD_RED }}>{n}</div>
+    <div className="font-semibold">{title}</div>
+    <p className="text-gray-700 mt-1">{desc}</p>
+  </div>
+);
+
 export default function App() {
-  const PAGES = ["fusa", "sotif", "iso8800"];
+  /* Add the new pages to the rotation */
+  const PAGES = [
+    "fusa", "sotif", "iso8800",
+    "appdev", "ecu", "devops",
+    "testing", "systems", "quality", "security", "sdv"
+  ];
   const AUTOPLAY_MS = 5000;
 
   const [page, setPage] = React.useState("fusa");
@@ -38,7 +46,7 @@ export default function App() {
     window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
 
   const nextPage = React.useCallback(() => {
-    setPage((p) => PAGES[(PAGES.indexOf(p) + 1) % PAGES.length]);
+    setPage(p => PAGES[(PAGES.indexOf(p) + 1) % PAGES.length]);
   }, []);
 
   const clearTimer = React.useCallback(() => {
@@ -55,7 +63,6 @@ export default function App() {
   }, [clearTimer, nextPage, prefersReduced]);
 
   React.useEffect(() => { startTimer(); return clearTimer; }, [page, startTimer, clearTimer]);
-
   React.useEffect(() => {
     const onVis = () => (document.hidden ? clearTimer() : startTimer());
     document.addEventListener("visibilitychange", onVis);
@@ -67,7 +74,7 @@ export default function App() {
   const Tab = ({ id, label }) => (
     <button
       onClick={() => onTabClick(id)}
-      className={`px-3 py-1.5 rounded-lg text-sm transition ${
+      className={`px-3 py-1.5 rounded-lg text-sm whitespace-nowrap transition ${
         page === id ? "bg-gray-900 text-white" : "hover:bg-gray-100"
       }`}
     >
@@ -90,56 +97,58 @@ export default function App() {
     </motion.div>
   );
 
+  /* -------- Header -------- */
   return (
     <div className="min-h-screen w-full text-gray-900 bg-gradient-to-b from-sky-50 via-white to-white">
-      {/* Header */}
       <header className="sticky top-0 z-10 bg-white/70 backdrop-blur border-b border-gray-200">
-        <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
           <a href="#top" className="font-extrabold tracking-tight" style={{ color: EJAD_BLUE }}>
-            <span style={{ color: EJAD_RED }}>Ejad</span> • Automotive Safety
+            <span style={{ color: EJAD_RED }}>eJad</span> • Automotive Safety
           </a>
-          <nav className="hidden md:flex items-center gap-2 text-sm">
-            <Tab id="fusa" label="FuSa (ISO 26262)" />
-            <Tab id="sotif" label="SOTIF (ISO 21448)" />
-            <Tab id="iso8800" label="ISO 8800 (AI)" />
-            <a href="#services" className="ml-2 px-3 py-1.5 rounded-lg border border-gray-300 bg-white">Services</a>
-            <a href="#faq" className="px-3 py-1.5 rounded-lg hover:bg-gray-100">FAQ</a>
+
+          {/* many tabs -> horizontally scrollable */}
+          <nav className="hidden md:flex items-center gap-2 text-sm overflow-x-auto max-w-[80%]">
+            <Tab id="fusa"     label="FuSa (ISO 26262)" />
+            <Tab id="sotif"    label="SOTIF (ISO 21448)" />
+            <Tab id="iso8800"  label="ISO 8800 (AI)" />
+            <Tab id="appdev"   label="Application Dev" />
+            <Tab id="ecu"      label="ECU SW Integration" />
+            <Tab id="devops"   label="DevOps / CI-CD" />
+            <Tab id="testing"  label="SW Testing" />
+            <Tab id="systems"  label="System Eng." />
+            <Tab id="quality"  label="SW Quality" />
+            <Tab id="security" label="Cyber Security" />
+            <Tab id="sdv"      label="SDV Services" />
           </nav>
         </div>
       </header>
 
-      {/* Hero */}
+      {/* ---- HERO ---- */}
       <section id="top" className="relative overflow-hidden">
         <div className="absolute inset-0 -z-10 blur-3xl opacity-70" aria-hidden>
           <div className="absolute -top-28 left-1/3 w-96 h-96 bg-sky-200 rounded-full" />
           <div className="absolute top-24 -left-20 w-72 h-72 bg-indigo-200 rounded-full" />
           <div className="absolute -bottom-24 right-10 w-80 h-80 bg-emerald-200 rounded-full" />
         </div>
-        <div className="max-w-6xl mx-auto px-4 py-10 md:py-14">
+
+        <div className="max-w-7xl mx-auto px-4 py-10 md:py-14">
           <motion.h1
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="text-3xl md:text-5xl font-extrabold tracking-tight"
           >
-            {page === "fusa" && (
-              <>
-                <span style={{ color: EJAD_BLUE }}>Functional Safety</span>{" "}
-                <span style={{ color: EJAD_RED }}>ISO 26262</span> Services
-              </>
-            )}
-            {page === "sotif" && (
-              <>
-                <span style={{ color: EJAD_BLUE }}>SOTIF</span>{" "}
-                <span style={{ color: EJAD_RED }}>(ISO 21448)</span> Services
-              </>
-            )}
-            {page === "iso8800" && (
-              <>
-                <span style={{ color: EJAD_BLUE }}>AI Safety & Assurance</span>{" "}
-                <span style={{ color: EJAD_RED }}>ISO 8800</span>
-              </>
-            )}
+            {page === "fusa"     && (<><span style={{color:EJAD_BLUE}}>Functional Safety</span> <span style={{color:EJAD_RED}}>ISO 26262</span> Services</>)}
+            {page === "sotif"    && (<><span style={{color:EJAD_BLUE}}>SOTIF</span> <span style={{color:EJAD_RED}}>(ISO 21448)</span> Services</>)}
+            {page === "iso8800"  && (<><span style={{color:EJAD_BLUE}}>AI Safety & Assurance</span> <span style={{color:EJAD_RED}}>ISO 8800</span></>)}
+            {page === "appdev"   && (<><span style={{color:EJAD_BLUE}}>Application Development</span></>)}
+            {page === "ecu"      && (<><span style={{color:EJAD_BLUE}}>ECU Software Development</span> <span style={{color:EJAD_RED}}>& Integration</span></>)}
+            {page === "devops"   && (<><span style={{color:EJAD_BLUE}}>DevOps</span> <span style={{color:EJAD_RED}}>CI/CD & Tooling</span></>)}
+            {page === "testing"  && (<><span style={{color:EJAD_BLUE}}>Software Testing</span> <span style={{color:EJAD_RED}}>& Validation</span></>)}
+            {page === "systems"  && (<><span style={{color:EJAD_BLUE}}>System Engineering</span></>)}
+            {page === "quality"  && (<><span style={{color:EJAD_BLUE}}>Software Quality</span></>)}
+            {page === "security" && (<><span style={{color:EJAD_BLUE}}>Cyber Security</span></>)}
+            {page === "sdv"      && (<><span style={{color:EJAD_BLUE}}>eJad SDV Services</span></>)}
           </motion.h1>
 
           <motion.p
@@ -148,180 +157,174 @@ export default function App() {
             transition={{ delay: 0.1, duration: 0.6 }}
             className="mt-3 text-lg text-gray-700 max-w-3xl"
           >
-            {page === "fusa" &&
-              "End-to-end ISO 26262 application—concept, system, HW/SW development, verification and production—integrated with your toolchain."}
-            {page === "sotif" &&
-              "Safety of the Intended Functionality: scenario catalogs, insufficiency analysis, measurable coverage and validation for ADAS/DMS."}
-            {page === "iso8800" &&
-              "Operationalize ISO/PAS 8800 with an auditable pipeline that ties into ISO 26262 and SOTIF."}
+            {page === "fusa"     && "End-to-end ISO 26262 application—concept, system, HW/SW development, verification and production."}
+            {page === "sotif"    && "Safety of the Intended Functionality: scenario catalogs, insufficiency analysis, measurable coverage & validation for ADAS/DMS."}
+            {page === "iso8800"  && "Operationalize ISO/PAS 8800 with an auditable pipeline tied to ISO 26262 and SOTIF."}
+            {page === "appdev"   && "ECU application logic and model-based design for AUTOSAR & non-AUTOSAR platforms."}
+            {page === "ecu"      && "Complete ECU software integration—Classic & Adaptive AUTOSAR, OEM extensions, platform bring-up."}
+            {page === "devops"   && "ARTOP/toolchains, build automation, CI/CD, and cloud dashboards for automotive software."}
+            {page === "testing"  && "Unit, integration, system qualification, fault injection, and conformance verification."}
+            {page === "systems"  && "Requirements, architecture, documentation and bidirectional traceability ownership."}
+            {page === "quality"  && "ASPICE, ISO 9001, process audits, and standards implementation for reliable delivery."}
+            {page === "security" && "TARA-driven cybersecurity, HSM development, secure stack integration for ECUs."}
+            {page === "sdv"      && "Application development, CI/CD automation, and containerized deployment for SDV."}
           </motion.p>
-
-          <div className="mt-6 flex flex-wrap gap-2">
-            {page === "fusa" && (
-              <>
-                <Badge>HARA • Safety Goals • TSC</Badge>
-                <Badge>ASIL decomposition</Badge>
-                <Badge>SW Safety & Tool Confidence</Badge>
-              </>
-            )}
-            {page === "sotif" && (
-              <>
-                <Badge>Scenario & Coverage</Badge>
-                <Badge>Insufficient Performance</Badge>
-                <Badge>Validation Strategy</Badge>
-              </>
-            )}
-            {page === "iso8800" && (
-              <>
-                <Badge>ODD → Data → Model → Tests → Runtime</Badge>
-                <Badge>Evidence-Driven Safety Case</Badge>
-              </>
-            )}
-          </div>
         </div>
       </section>
 
-      {/* Animated page body */}
-      <div className="max-w-6xl mx-auto px-4 pb-16">
+      {/* ---- BODY ---- */}
+      <div className="max-w-7xl mx-auto px-4 pb-16">
         <AnimatePresence mode="wait">
-          {/* ---------------- FuSa page (keeps images) ---------------- */}
+
+          {/* Existing pages remain text-only cards (no images). */}
           {page === "fusa" && (
             <PageShell>
-              <div className="grid md:grid-cols-2 gap-6 items-center">
-                <img
-                  src={fusaHero}
-                  alt="ISO 26262 Functional Safety Services"
-                  className="w-full rounded-xl border border-gray-200 shadow-sm"
-                />
-                <Card>
-                  <h3 className="text-2xl font-extrabold" style={{ color: EJAD_BLUE }}>
-                    Our Strategy
-                  </h3>
-                  <ul className="mt-3 list-disc pl-5 space-y-1">
-                    <li>Apply ISO 26262 development methods up to ASIL-D.</li>
-                    <li>Support functional safety assessment and compliance.</li>
-                    <li>Assist OEMs with item definition, safety goals, and FSC.</li>
-                    <li>Decompose high ASILs for lean design.</li>
-                    <li>Propose effective and adequate safety mechanisms.</li>
-                  </ul>
-                </Card>
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-6 items-center mt-10">
-                <img
-                  src={fusaFootprint}
-                  alt="Safety Footprint"
-                  className="w-full rounded-xl border border-gray-200 shadow-sm"
-                />
-                <Card>
-                  <h3 className="text-2xl font-extrabold" style={{ color: EJAD_BLUE }}>
-                    Safety Footprint
-                  </h3>
-                  <p className="mt-2">
-                    <strong>16+ years</strong> applying ISO 26262 at vehicle and architecture levels
-                    (ADAS, EV). Concepts for AUTOSAR, QNX, Linux embedded, AI, high-performance
-                    processors—and more.
-                  </p>
-                </Card>
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-6 mt-10">
-                <img
-                  src={fusaAct1}
-                  alt="FuSa Activities Overview"
-                  className="w-full rounded-xl border border-gray-200 shadow-sm"
-                />
-                <img
-                  src={fusaAct2}
-                  alt="FuSa Activities Detailed"
-                  className="w-full rounded-xl border border-gray-200 shadow-sm"
-                />
+              <div className="grid md:grid-cols-3 gap-4">
+                <Step n="01" title="Item & Concept"
+                  desc="HARA, safety goals, functional safety concept (FSC) and ASIL decomposition." />
+                <Step n="02" title="System & SW Dev"
+                  desc="Partitioning, safety mechanisms, tool confidence, and guided integration." />
+                <Step n="03" title="V&V & Assessment"
+                  desc="Unit/integration/system tests, coverage metrics, and assessor-ready evidence." />
               </div>
             </PageShell>
           )}
 
-          {/* ---------------- SOTIF page (no images, just boxes) ---------------- */}
           {page === "sotif" && (
             <PageShell>
               <div className="grid md:grid-cols-3 gap-4">
-                <Card title={<span style={{ color: EJAD_BLUE }}>Scenario Engineering</span>}>
-                  <ul className="mt-2 list-disc pl-5 space-y-1">
-                    <li>ODD-aligned scenario catalog (nominal, boundary, long-tail).</li>
-                    <li>Coverage metrics for perception/planning behavior.</li>
-                    <li>Traceability to requirements & tests.</li>
-                  </ul>
-                </Card>
-                <Card title={<span style={{ color: EJAD_BLUE }}>Insufficient Performance</span>}>
-                  <ul className="mt-2 list-disc pl-5 space-y-1">
-                    <li>Analyze sensor/ML limitations that can cause hazards.</li>
-                    <li>Define mitigations, monitors, and fallbacks.</li>
-                    <li>Feed insights back to design & validation.</li>
-                  </ul>
-                </Card>
-                <Card title={<span style={{ color: EJAD_BLUE }}>Validation & Evidence</span>}>
-                  <ul className="mt-2 list-disc pl-5 space-y-1">
-                    <li>Simulation, replay, and track testing plans.</li>
-                    <li>Measurable KPIs with confidence bounds.</li>
-                    <li>Evidence packs for the safety argument.</li>
-                  </ul>
-                </Card>
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-4 mt-6">
-                <Card title={<span style={{ color: EJAD_RED }}>Use Cases</span>}>
-                  DMS • Front Camera (ADAS) — end-to-end from scenarios to validation.
-                </Card>
-                <Card title="Deliverables">
-                  SOTIF requirements, coverage reports, insufficiency analysis, and validation
-                  results integrated into your toolchain.
-                </Card>
+                <Step n="01" title="Scenario Engineering"
+                      desc="ODD-aligned scenario catalog (nominal, boundary, long-tail) with coverage metrics."/>
+                <Step n="02" title="Insufficient Performance"
+                      desc="Analyze sensor/ML limitations, define monitors & fallbacks, feed back to design."/>
+                <Step n="03" title="Validation Evidence"
+                      desc="Simulation, replay & track tests; KPIs with confidence; safety argument packs."/>
               </div>
             </PageShell>
           )}
 
-          {/* ---------------- ISO 8800 page (no images, just boxes) ---------------- */}
           {page === "iso8800" && (
             <PageShell>
               <div className="grid md:grid-cols-3 gap-4">
-                <Card title={<span style={{ color: EJAD_BLUE }}>Scope & Tailoring</span>}>
-                  <ul className="mt-2 list-disc pl-5 space-y-1">
-                    <li>Item → AI system → AI components (model vs non-model).</li>
-                    <li>Allocate AI safety reqs from encompassing system.</li>
-                    <li>Define ODD, performance targets, monitors, fallbacks.</li>
-                  </ul>
-                </Card>
-                <Card title={<span style={{ color: EJAD_BLUE }}>Design & V-Model</span>}>
-                  <ul className="mt-2 list-disc pl-5 space-y-1">
-                    <li>Data governance and gold sets.</li>
-                    <li>Component design & implementation.</li>
-                    <li>Component verification & AI system V&amp;V.</li>
-                  </ul>
-                </Card>
-                <Card title={<span style={{ color: EJAD_BLUE }}>Runtime & OTA</span>}>
-                  <ul className="mt-2 list-disc pl-5 space-y-1">
-                    <li>Runtime monitors & thresholds.</li>
-                    <li>Retraining/OTA re-qualification gates.</li>
-                    <li>Continuous assurance & KPIs.</li>
-                  </ul>
-                </Card>
-              </div>
-
-              <div className="grid md:grid-cols-3 gap-4 mt-6">
-                <Card title="Evaluate Assurance">
-                  Are AI safety requirements fulfilled? Evidence rolled into the safety case.
-                </Card>
-                <Card title="Integrate & System V&V">
-                  Close the loop at system level; keep assurance argument valid across releases.
-                </Card>
-                <Card title="Tool Confidence">
-                  Confidence-in-use / qualification for AI frameworks, data tools, and pipelines.
-                </Card>
+                <Step n="01" title="Scope & Tailoring"
+                      desc="Allocate AI safety to AI system/components. Define ODD, targets & monitors."/>
+                <Step n="02" title="Design & V-Model"
+                      desc="Data governance, component design & implementation, component/system V&V."/>
+                <Step n="03" title="Operate & Assure"
+                      desc="Runtime monitoring, OTA re-qualification, and tool confidence."/>
               </div>
             </PageShell>
           )}
+
+          {/* ---- New Pages ---- */}
+
+          {page === "appdev" && (
+            <PageShell>
+              <div className="grid md:grid-cols-3 gap-4">
+                <Step n="01" title="Requirements & Model-Based Design"
+                  desc="Capture functional needs and develop Simulink/Stateflow or code-first models."/>
+                <Step n="02" title="Autosar & Non-Autosar Apps"
+                  desc="Component architecture, RTE interfaces, diagnostics, NVM, and safety hooks."/>
+                <Step n="03" title="Code Gen & Integration"
+                  desc="Auto-code or hand-code, static checks, build profiles, and CI unit tests."/>
+              </div>
+            </PageShell>
+          )}
+
+          {page === "ecu" && (
+            <PageShell>
+              <div className="grid md:grid-cols-3 gap-4">
+                <Step n="01" title="Platform Bring-up"
+                  desc="MCAL/BSP/boot, clock & memory, drivers, and safety-related init."/>
+                <Step n="02" title="Classic & Adaptive AUTOSAR"
+                  desc="BSW config, RTE, SOME/IP/DoIP, ara::com, and OEM extensions."/>
+                <Step n="03" title="Integration & Flash"
+                  desc="Integration tests on HiL/bench, flashing, secure boot and diagnostics."/>
+              </div>
+            </PageShell>
+          )}
+
+          {page === "devops" && (
+            <PageShell>
+              <div className="grid md:grid-cols-3 gap-4">
+                <Step n="01" title="Tooling & ARTOP"
+                  desc="Workspace standards, templates, static analysis, and license governance."/>
+                <Step n="02" title="CI/CD Pipeline"
+                  desc="Build automation, test orchestration, artifact retention, metrics and gates."/>
+                <Step n="03" title="Dashboards"
+                  desc="Coverage, defects, performance & reliability KPIs with trend alerts."/>
+              </div>
+            </PageShell>
+          )}
+
+          {page === "testing" && (
+            <PageShell>
+              <div className="grid md:grid-cols-3 gap-4">
+                <Step n="01" title="Unit & Integration Tests"
+                  desc="Branch/MCDC coverage, GoogleTest/CppUTest, middleware & driver tests."/>
+                <Step n="02" title="System & Qualification"
+                  desc="Black-box tests, fault injection, endurance, startup/run-time checks."/>
+                <Step n="03" title="Conformance"
+                  desc="OEM / MISRA / Autosar C++ checks, timing/stack/latency verification."/>
+              </div>
+            </PageShell>
+          )}
+
+          {page === "systems" && (
+            <PageShell>
+              <div className="grid md:grid-cols-3 gap-4">
+                <Step n="01" title="Requirements Ownership"
+                  desc="HW/SW requirements, change control, and stakeholder alignment."/>
+                <Step n="02" title="Architecture & Documentation"
+                  desc="System, software and interface specs with diagrams and acceptance criteria."/>
+                <Step n="03" title="Traceability"
+                  desc="Bi-directional linkage across reqs → design → code → tests → evidence."/>
+              </div>
+            </PageShell>
+          )}
+
+          {page === "quality" && (
+            <PageShell>
+              <div className="grid md:grid-cols-3 gap-4">
+                <Step n="01" title="Quality System"
+                  desc="ASPICE & ISO 9001 tailoring; process assets, checklists and audits."/>
+                <Step n="02" title="Standards & Reviews"
+                  desc="Coding standards, static analysis policies, design & code reviews."/>
+                <Step n="03" title="Release & Evidence"
+                  desc="Definition of Done, quality gates, and release documentation packs."/>
+              </div>
+            </PageShell>
+          )}
+
+          {page === "security" && (
+            <PageShell>
+              <div className="grid md:grid-cols-3 gap-4">
+                <Step n="01" title="TARA & Requirements"
+                  desc="Threat analysis, assets, attack paths, and cybersecurity goals."/>
+                <Step n="02" title="Secure Architecture"
+                  desc="HSM, key management, secure boot, update, and comms hardening."/>
+                <Step n="03" title="Implementation & Tests"
+                  desc="Crypto integration, fuzzing, penetration tests, and vuln management."/>
+              </div>
+            </PageShell>
+          )}
+
+          {page === "sdv" && (
+            <PageShell>
+              <div className="grid md:grid-cols-3 gap-4">
+                <Step n="01" title="SDV App Development"
+                  desc="Rust/C++ services, APIs, and Velocitas-based framework tailoring."/>
+                <Step n="02" title="DevOps CI/CD"
+                  desc="Automation pipelines, metrics/quality gates, and dashboarding."/>
+                <Step n="03" title="Containerization & Deploy"
+                  desc="Dockerized apps, orchestration, rollout strategies, and monitoring."/>
+              </div>
+            </PageShell>
+          )}
+
         </AnimatePresence>
 
-        {/* Shared sections */}
+        {/* Shared Services footer section */}
         <section id="services" className="py-10">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight" style={{ color: EJAD_BLUE }}>
             Services
@@ -343,14 +346,11 @@ export default function App() {
       </div>
 
       <footer className="py-10 border-t border-gray-200 text-sm">
-        <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-3">
-          <div>
-            © {new Date().getFullYear()} <span style={{ color: EJAD_RED }}>Ejad</span> Automotive Safety
-          </div>
+        <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-3">
+          <div>© {new Date().getFullYear()} <span style={{ color: EJAD_RED }}>eJad</span> Automotive Safety</div>
           <div className="flex gap-4">
-            <button onClick={() => onTabClick("fusa")} className="hover:underline">FuSa</button>
-            <button onClick={() => onTabClick("sotif")} className="hover:underline">SOTIF</button>
-            <button onClick={() => onTabClick("iso8800")} className="hover:underline">ISO 8800</button>
+            {["fusa","sotif","iso8800","appdev","ecu","devops","testing","systems","quality","security","sdv"]
+              .map(k => <button key={k} onClick={() => onTabClick(k)} className="hover:underline capitalize">{k}</button>)}
           </div>
         </div>
       </footer>
