@@ -47,7 +47,7 @@ const Box = ({ title, points = [], highlight }) => (
 );
 
 export default function App() {
-  /* Reordered pages: systems → ecu → appdev → fusa → sotif → iso8800 → security → devops → ai → testing → quality */
+  /* Reordered pages */
   const PAGES = [
     "systems", "ecu", "appdev",
     "fusa", "sotif", "iso8800",
@@ -114,7 +114,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen w-full text-gray-900 bg-gradient-to-b from-sky-50 via-white to-white">
-      {/* Header: logo aligned right, larger height for slogan */}
+      {/* HEADER (logo removed from here) */}
       <header className="sticky top-0 z-10 bg-white/70 backdrop-blur border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 py-2.5 flex items-center justify-between gap-3">
           <a href="#top" className="font-extrabold tracking-tight text-lg md:text-xl" style={{ color: EJAD_BLUE }}>
@@ -134,16 +134,9 @@ export default function App() {
             <Tab id="testing" label="SW Testing" />
             <Tab id="quality" label="SW Quality" />
           </nav>
-
-          {/* eJad logo (bigger to show slogan) */}
-          <img
-            src={ejadLogo}
-            alt="eJad logo"
-            className="h-12 sm:h-14 md:h-16 shrink-0"
-          />
         </div>
 
-        {/* Secondary row for nav on smaller screens */}
+        {/* Secondary row on small screens */}
         <div className="lg:hidden max-w-7xl mx-auto px-4 pb-2">
           <div className="flex items-center gap-2 overflow-x-auto">
             <Tab id="systems" label="System Eng." />
@@ -161,7 +154,7 @@ export default function App() {
         </div>
       </header>
 
-      {/* Hero */}
+      {/* HERO (logo now aligned on the same line as the page title, right side) */}
       <section id="top" className="relative overflow-hidden">
         <div className="absolute inset-0 -z-10 blur-3xl opacity-70" aria-hidden>
           <div className="absolute -top-28 left-1/3 w-96 h-96 bg-sky-200 rounded-full" />
@@ -169,25 +162,38 @@ export default function App() {
           <div className="absolute -bottom-24 right-10 w-80 h-80 bg-emerald-200 rounded-full" />
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 py-10 md:py-14">
-          <motion.h1
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-3xl md:text-5xl font-extrabold tracking-tight"
-          >
-            {page === "systems" && (<><span style={{color:EJAD_BLUE}}>System Engineering</span></>)}
-            {page === "ecu"     && (<><span style={{color:EJAD_BLUE}}>ECU Software Development</span> <span style={{color:EJAD_RED}}>& Integration</span></>)}
-            {page === "appdev"  && (<><span style={{color:EJAD_BLUE}}>Application Development</span></>)}
-            {page === "fusa"    && (<><span style={{color:EJAD_BLUE}}>Functional Safety</span> <span style={{color:EJAD_RED}}>ISO 26262</span> Services</>)}
-            {page === "sotif"   && (<><span style={{color:EJAD_BLUE}}>SOTIF</span> <span style={{color:EJAD_RED}}>Services</span></>)}
-            {page === "iso8800" && (<><span style={{color:EJAD_BLUE}}>AI Safety & Assurance</span> <span style={{color:EJAD_RED}}>ISO 8800</span></>)}
-            {page === "security"&& (<><span style={{color:EJAD_BLUE}}>Cyber Security</span></>)}
-            {page === "devops"  && (<><span style={{color:EJAD_BLUE}}>DevOps</span> <span style={{color:EJAD_RED}}>CI/CD & Tooling</span></>)}
-            {page === "ai"      && (<><span style={{color:EJAD_BLUE}}>eJad</span> <span style={{color:EJAD_RED}}>AI Solutions</span></>)}
-            {page === "testing" && (<><span style={{color:EJAD_BLUE}}>Software Testing</span> <span style={{color:EJAD_RED}}>& Validation</span></>)}
-            {page === "quality" && (<><span style={{color:EJAD_BLUE}}>Software Quality</span></>)}
-          </motion.h1>
+        <div className="max-w-7xl mx-auto px-4 py-8 md:py-10">
+          {/* Title + Logo row */}
+          <div className="flex items-center justify-between gap-6">
+            <motion.h1
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-3xl md:text-5xl font-extrabold tracking-tight"
+            >
+              {page === "systems" && (<><span style={{color:EJAD_BLUE}}>System Engineering</span></>)}
+              {page === "ecu"     && (<><span style={{color:EJAD_BLUE}}>ECU Software Development</span> <span style={{color:EJAD_RED}}>& Integration</span></>)}
+              {page === "appdev"  && (<><span style={{color:EJAD_BLUE}}>Application Development</span></>)}
+              {page === "fusa"    && (<><span style={{color:EJAD_BLUE}}>Functional Safety</span> <span style={{color:EJAD_RED}}>ISO 26262</span> Services</>)}
+              {page === "sotif"   && (<><span style={{color:EJAD_BLUE}}>SOTIF</span> <span style={{color:EJAD_RED}}>Services</span></>)}
+              {page === "iso8800" && (<><span style={{color:EJAD_BLUE}}>AI Safety & Assurance</span> <span style={{color:EJAD_RED}}>ISO 8800</span></>)}
+              {page === "security"&& (<><span style={{color:EJAD_BLUE}}>Cyber Security</span></>)}
+              {page === "devops"  && (<><span style={{color:EJAD_BLUE}}>DevOps</span> <span style={{color:EJAD_RED}}>CI/CD & Tooling</span></>)}
+              {page === "ai"      && (<><span style={{color:EJAD_BLUE}}>eJad</span> <span style={{color:EJAD_RED}}>AI Solutions</span></>)}
+              {page === "testing" && (<><span style={{color:EJAD_BLUE}}>Software Testing</span> <span style={{color:EJAD_RED}}>& Validation</span></>)}
+              {page === "quality" && (<><span style={{color:EJAD_BLUE}}>Software Quality</span></>)}
+            </motion.h1>
+
+            {/* Right-aligned large logo */}
+            <motion.img
+              initial={{ opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              src={ejadLogo}
+              alt="eJad logo"
+              className="h-14 md:h-18 lg:h-20 xl:h-24 shrink-0"
+            />
+          </div>
 
           <motion.p
             initial={{ opacity: 0, y: 8 }}
@@ -310,7 +316,7 @@ export default function App() {
             </PageShell>
           )}
 
-          {/* -------- Functional Safety (unchanged, with images) -------- */}
+          {/* -------- Functional Safety (with images) -------- */}
           {page === "fusa" && (
             <PageShell>
               <div className="grid md:grid-cols-2 gap-6 items-center">
