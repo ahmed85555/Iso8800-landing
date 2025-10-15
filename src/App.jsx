@@ -1,24 +1,27 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-/* Brand */
+/* ---- Brand colors ---- */
 const EJAD_BLUE = "#143D8D";
 const EJAD_RED  = "#E61E62";
 
-/* Functional Safety images (keep as before) */
+/* ---- Functional Safety images (kept as before) ---- */
 import fusaHero      from "./assets/fusa-hero.PNG?url";
 import fusaFootprint from "./assets/fusa-footprint.PNG?url";
 import fusaAct1      from "./assets/fusa-activities-1.PNG?url";
 import fusaAct2      from "./assets/fusa-activities-2.PNG?url";
 
-/* SDV page images (add these three files to src/assets/) */
-import sdvApp     from "./assets/sdv-app.PNG?url";
-import sdvCi      from "./assets/sdv-ci.PNG?url";
-import sdvDeploy  from "./assets/sdv-deploy.PNG?url";
+/* ---- SDV images ---- */
+import sdvApp    from "./assets/sdv-app.PNG?url";
+import sdvCi     from "./assets/sdv-ci.PNG?url";
+import sdvDeploy from "./assets/sdv-deploy.PNG?url";
 
-/* UI atoms */
-const Badge = ({ children }) => (
-  <span className="px-2.5 py-1 rounded-lg bg-gray-100 text-gray-700 text-xs">{children}</span>
+/* ---- eJad AI Solutions hero image ---- */
+import aiHero    from "./assets/ai-hero.PNG?url";
+
+/* ---- Small UI helpers ---- */
+const EJadMark = () => (
+  <span className="font-extrabold" style={{ color: EJAD_RED }}>eJad</span>
 );
 
 function Card({ title, children }) {
@@ -41,11 +44,12 @@ const Box = ({ title, points = [], highlight }) => (
 );
 
 export default function App() {
+  /* Pages in rotation (now includes AI) */
   const PAGES = [
     "fusa", "sotif", "iso8800",
     "appdev", "ecu", "devops",
     "testing", "systems", "quality",
-    "security", "sdv"
+    "security", "ai", "sdv"
   ];
   const AUTOPLAY_MS = 5000;
 
@@ -111,7 +115,7 @@ export default function App() {
       <header className="sticky top-0 z-10 bg-white/70 backdrop-blur border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
           <a href="#top" className="font-extrabold tracking-tight" style={{ color: EJAD_BLUE }}>
-            <span style={{ color: EJAD_RED }}>eJad</span> • Automotive Safety
+            <EJadMark /> • Automotive Safety
           </a>
           <nav className="hidden md:flex items-center gap-2 text-sm overflow-x-auto max-w-[80%]">
             <Tab id="fusa" label="FuSa (ISO 26262)" />
@@ -124,6 +128,7 @@ export default function App() {
             <Tab id="systems" label="System Eng." />
             <Tab id="quality" label="SW Quality" />
             <Tab id="security" label="Cyber Security" />
+            <Tab id="ai" label="AI Solutions" />
             <Tab id="sdv" label="SDV Services" />
           </nav>
         </div>
@@ -154,6 +159,7 @@ export default function App() {
             {page === "systems" && (<><span style={{color:EJAD_BLUE}}>System Engineering</span></>)}
             {page === "quality" && (<><span style={{color:EJAD_BLUE}}>Software Quality</span></>)}
             {page === "security"&& (<><span style={{color:EJAD_BLUE}}>Cyber Security</span></>)}
+            {page === "ai"      && (<><span style={{color:EJAD_BLUE}}>eJad</span> <span style={{color:EJAD_RED}}>AI Solutions</span></>)}
             {page === "sdv"     && (<><span style={{color:EJAD_BLUE}}>eJad SDV Services</span></>)}
           </motion.h1>
 
@@ -173,6 +179,7 @@ export default function App() {
             {page === "systems" && "Requirements, architecture, documentation and full traceability ownership."}
             {page === "quality" && "Quality assurance per industry standards with actionable reviews and audits."}
             {page === "security"&& "Cybersecurity analysis and implementation—TARA, HSM development and secure stack integration."}
+            {page === "ai"      && "Applied AI that accelerates testing, failure analysis, cybersecurity risk workflows, and functional-safety evidence generation—integrated with your toolchain."}
             {page === "sdv"     && "SDV application development, DevOps CI/CD, and containerized deployment with the platforms you use."}
           </motion.p>
         </div>
@@ -515,7 +522,40 @@ export default function App() {
             </PageShell>
           )}
 
-          {/* -------- eJad SDV Services (with your images) -------- */}
+          {/* -------- eJad AI Solutions (with image) -------- */}
+          {page === "ai" && (
+            <PageShell>
+              <div className="grid md:grid-cols-2 gap-6 items-start">
+                <img
+                  src={aiHero}
+                  alt="eJad AI solutions"
+                  className="w-full rounded-xl border border-gray-200 shadow-sm"
+                />
+                <div className="grid gap-4">
+                  <Card title="Services">
+                    <ul className="mt-2 list-disc pl-5 space-y-1">
+                      <li><strong>Testing:</strong> AI-powered test-cases generator (SWE4/5 scope).</li>
+                      <li><strong>Problem Analysis:</strong> AI-powered failure-logs analysis (clustering, duplicate detection, RCA hints).</li>
+                      <li><strong>Cyber Security:</strong> AI-powered TARA workflow (threat ID, risk scoring, control mapping).</li>
+                      <li><strong>Functional Safety:</strong> Safety analysis automation for HARA, FMEA, and FTA with traceable outputs.</li>
+                      <li><strong>Functional Safety:</strong> Compiler & toolchain safety validation (qualification evidence packs).</li>
+                    </ul>
+                  </Card>
+                  <Card title="Achievements">
+                    <ul className="mt-2 list-disc pl-5 space-y-1">
+                      <li>Faster test design and higher scenario coverage via AI assistance.</li>
+                      <li>Large reduction in log-triage time using clustering and LLM summaries.</li>
+                      <li>Consistent, auditable TARA across components with traceable reasoning.</li>
+                      <li>Shortened safety analysis review cycles with fewer manual errors.</li>
+                      <li>Repeatable, evidence-backed toolchain validations aligned to audits.</li>
+                    </ul>
+                  </Card>
+                </div>
+              </div>
+            </PageShell>
+          )}
+
+          {/* -------- eJad SDV Services (with images) -------- */}
           {page === "sdv" && (
             <PageShell>
               <div className="grid md:grid-cols-3 gap-6 items-start">
@@ -535,7 +575,7 @@ export default function App() {
                     <li>Build-automation pipeline design</li>
                     <li>Front-end dashboards for visibility</li>
                     <li>Metrics/Build statistics & auto-merge to main</li>
-                    <li>Automated metrics and code quality gates</li>
+                    <li>Automated metrics and code-quality gates</li>
                   </ul>
                   <img src={sdvCi} alt="DevOps CI/CD" className="w-full rounded-xl border border-gray-200 shadow-sm" />
                 </div>
@@ -578,9 +618,9 @@ export default function App() {
 
       <footer className="py-10 border-t border-gray-200 text-sm">
         <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-3">
-          <div>© {new Date().getFullYear()} <span style={{ color: EJAD_RED }}>eJad</span> Automotive Safety</div>
+          <div>© {new Date().getFullYear()} <EJadMark /> Automotive Safety</div>
           <div className="flex gap-4">
-            {["fusa","sotif","iso8800","appdev","ecu","devops","testing","systems","quality","security","sdv"]
+            {["fusa","sotif","iso8800","appdev","ecu","devops","testing","systems","quality","security","ai","sdv"]
               .map(k => <button key={k} onClick={() => onTabClick(k)} className="hover:underline capitalize">{k}</button>)}
           </div>
         </div>
