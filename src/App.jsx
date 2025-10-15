@@ -14,7 +14,7 @@ import fusaFootprint from "./assets/fusa-footprint.PNG?url";
 import fusaAct1      from "./assets/fusa-activities-1.PNG?url";
 import fusaAct2      from "./assets/fusa-activities-2.PNG?url";
 
-/* SDV */
+/* SDV (kept for future pages if needed) */
 import sdvApp    from "./assets/sdv-app.PNG?url";
 import sdvCi     from "./assets/sdv-ci.PNG?url";
 import sdvDeploy from "./assets/sdv-deploy.PNG?url";
@@ -114,7 +114,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen w-full text-gray-900 bg-gradient-to-b from-sky-50 via-white to-white">
-      {/* HEADER (logo removed from here) */}
+      {/* HEADER (no logo here) */}
       <header className="sticky top-0 z-10 bg-white/70 backdrop-blur border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 py-2.5 flex items-center justify-between gap-3">
           <a href="#top" className="font-extrabold tracking-tight text-lg md:text-xl" style={{ color: EJAD_BLUE }}>
@@ -154,7 +154,7 @@ export default function App() {
         </div>
       </header>
 
-      {/* HERO (logo now aligned on the same line as the page title, right side) */}
+      {/* HERO (logo aligned on same line as title, right side) */}
       <section id="top" className="relative overflow-hidden">
         <div className="absolute inset-0 -z-10 blur-3xl opacity-70" aria-hidden>
           <div className="absolute -top-28 left-1/3 w-96 h-96 bg-sky-200 rounded-full" />
@@ -316,41 +316,52 @@ export default function App() {
             </PageShell>
           )}
 
-          {/* -------- Functional Safety (with images) -------- */}
+          {/* -------- Functional Safety (compact, one-screen) -------- */}
           {page === "fusa" && (
             <PageShell>
-              <div className="grid md:grid-cols-2 gap-6 items-center">
-                <img src={fusaHero} alt="ISO 26262 Functional Safety Services"
-                     className="w-full rounded-xl border border-gray-200 shadow-sm" />
-                <Card>
-                  <h3 className="text-2xl font-extrabold" style={{ color: EJAD_BLUE }}>Our Strategy</h3>
-                  <ul className="mt-3 list-disc pl-5 space-y-1">
-                    <li>Apply ISO 26262 development methods up to ASIL-D.</li>
-                    <li>Support functional safety assessment and compliance.</li>
-                    <li>Assist OEMs with item definition, safety goals, and FSC.</li>
-                    <li>Decompose high ASILs for lean design.</li>
-                    <li>Propose effective and adequate safety mechanisms.</li>
-                  </ul>
-                </Card>
-              </div>
+              <div className="grid lg:grid-cols-2 gap-4 items-stretch lg:min-h-[70vh]">
+                {/* LEFT COLUMN: two images stacked */}
+                <div className="grid gap-4">
+                  <img
+                    src={fusaHero}
+                    alt="ISO 26262 Functional Safety Services"
+                    className="w-full h-[32vh] lg:h-[33vh] object-contain rounded-xl border border-gray-200 shadow-sm bg-white"
+                  />
+                  <img
+                    src={fusaFootprint}
+                    alt="Safety Footprint"
+                    className="w-full h-[32vh] lg:h-[33vh] object-contain rounded-xl border border-gray-200 shadow-sm bg-white"
+                  />
+                </div>
 
-              <div className="grid md:grid-cols-2 gap-6 items-center mt-10">
-                <img src={fusaFootprint} alt="Safety Footprint"
-                     className="w-full rounded-xl border border-gray-200 shadow-sm" />
-                <Card>
-                  <h3 className="text-2xl font-extrabold" style={{ color: EJAD_BLUE }}>Safety Footprint</h3>
-                  <p className="mt-2">
-                    <strong>16+ years</strong> applying ISO 26262 at vehicle and architecture levels
-                    (ADAS, EV). Concepts for AUTOSAR, QNX, Linux embedded, AI, high-performance processors—and more.
-                  </p>
-                </Card>
-              </div>
+                {/* RIGHT COLUMN: strategy + two activity images */}
+                <div className="grid gap-4">
+                  <Card>
+                    <h3 className="text-xl md:text-2xl font-extrabold" style={{ color: EJAD_BLUE }}>
+                      Our Strategy
+                    </h3>
+                    <ul className="mt-2 list-disc pl-5 space-y-1 text-[0.95rem]">
+                      <li>Apply ISO 26262 development methods up to ASIL-D.</li>
+                      <li>Support functional safety assessment and compliance.</li>
+                      <li>Assist OEMs with item definition, safety goals, and FSC.</li>
+                      <li>Decompose high ASILs for lean design.</li>
+                      <li>Propose effective and adequate safety mechanisms.</li>
+                    </ul>
+                  </Card>
 
-              <div className="grid md:grid-cols-2 gap-6 mt-10">
-                <img src={fusaAct1} alt="FuSa Activities Overview"
-                     className="w-full rounded-xl border border-gray-200 shadow-sm" />
-                <img src={fusaAct2} alt="FuSa Activities Detailed"
-                     className="w-full rounded-xl border border-gray-200 shadow-sm" />
+                  <div className="grid grid-cols-2 gap-4">
+                    <img
+                      src={fusaAct1}
+                      alt="FuSa Activities Overview"
+                      className="w-full h-[24vh] object-contain rounded-xl border border-gray-200 shadow-sm bg-white"
+                    />
+                    <img
+                      src={fusaAct2}
+                      alt="FuSa Activities Detailed"
+                      className="w-full h-[24vh] object-contain rounded-xl border border-gray-200 shadow-sm bg-white"
+                    />
+                  </div>
+                </div>
               </div>
             </PageShell>
           )}
@@ -389,7 +400,7 @@ export default function App() {
             </PageShell>
           )}
 
-          {/* -------- ISO 8800 (AI Safety) Services -------- */}
+          {/* -------- ISO 8800 (AI Safety) -------- */}
           {page === "iso8800" && (
             <PageShell>
               <div className="grid md:grid-cols-3 gap-4">
@@ -455,7 +466,7 @@ export default function App() {
             </PageShell>
           )}
 
-          {/* -------- DevOps — CI/CD & Tooling -------- */}
+          {/* -------- DevOps / CI-CD -------- */}
           {page === "devops" && (
             <PageShell>
               <div className="grid md:grid-cols-3 gap-4">
